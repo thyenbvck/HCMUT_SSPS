@@ -11,7 +11,7 @@ const Login = ({ onLogin }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Tên tài khoản và mật khẩu cố định để kiểm tra
+  // Tên tài khoản và mật khẩu cố định để kiểm tra.
   const validUsername = "admin";
   const validPassword = "123456";
 
