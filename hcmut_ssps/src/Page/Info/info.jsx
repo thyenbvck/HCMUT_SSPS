@@ -1,18 +1,20 @@
-import React from 'react'
+import React from 'react';
 import { Helmet } from 'react-helmet'
-import './css/info.css'
-
+import './info.css'
+import Sidebar from "../../components/Sidebar";
+import dividerImage from './images/divider774-701.svg';
 const info = () => {
   return (
     <div className="info-container">
       <Helmet>
         <title>Thông tin tài khoản</title>
       </Helmet>
+      <Sidebar/>  
         <div className="info-group4">
             <div className="info-pageheading">
               <span className="info-text1">Thông tin tài khoản</span>
               <img
-                src="/external/divider774-701.svg"
+                src={dividerImage}
                 alt="Divider774"
                 className="info-divider"
               />
@@ -37,4 +39,4 @@ const info = () => {
   )
 }
 
-export default info
+export default info;

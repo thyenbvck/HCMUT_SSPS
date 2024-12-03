@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Login from "./Page/Login/login";
 import PrintPage from "./Page/PrintPage/printPage"
 import PrintSelection from "./Page/PrintSelection/PrintSelection.jsx"
+import Info from "./Page/Info/info.jsx"
 
 
 import { BrowserRouter as Router, Route, Routes, useLocation  } from "react-router-dom";
@@ -21,6 +22,7 @@ function App() {
           <Route path="/print-services" element={<PrintPage />} />
           {/* Thêm các Route khác nếu cần */}
           <Route path="/print-slection" element={<PrintSelection/>}  />
+          <Route path="/account-info" element={<Info />} />
         </Routes>
       </div>
     </div>
