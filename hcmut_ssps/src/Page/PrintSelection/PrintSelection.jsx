@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./PrintSelection.css"; // Add CSS styles for the design
 import Sidebar from "../../components/Sidebar";
 
-const PrintPage2 = ({ file }) => {
+const PrintSelection = ({ file }) => {
   const [printer, setPrinter] = useState("");
   const [pageRange, setPageRange] = useState("all");
   const [copies, setCopies] = useState(1);
@@ -135,4 +135,4 @@ const PrintPage2 = ({ file }) => {
   );
 };
 
-export default PrintPage2;
+export default PrintSelection;
