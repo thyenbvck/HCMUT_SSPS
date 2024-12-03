@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import Login from "./Page/Login/login";
-import PrintPage from "./Page/PrintPage/printPage";
-
+import PrintPage from "./Page/PrintPage/printPage"
+import { BrowserRouter as Router, Route, Routes, useLocation  } from "react-router-dom";
+// import accountInfo from "./Page/Info/Info";
+// import onlinePayment from "./Page/onlinePayment";
+// import buyPages from "./Page/buyPages";
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const handleLogin = () => {
+  //   setIsLoggedIn(true);
+  // };
   return (
-    <div>
-      {isLoggedIn ? <PrintPage /> : <Login onLogin={handleLogin} />}
+    <div className="app-container">  
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/print-services" element={<PrintPage />} />
+          {/* Thêm các Route khác nếu cần */}
+        </Routes>
+      </div>
     </div>
   );
 }

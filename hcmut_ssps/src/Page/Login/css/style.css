@@ -200,7 +200,6 @@ body {
   font-size: 13px;
   line-height: 1.8;
   color: #222;
-  background: #007aff;
   font-weight: 400;
   font-family: Poppins; 
 }
@@ -216,6 +215,8 @@ body {
 .background {
   display: flex;
   height: 100vh; 
+  background: #007aff;
+
 }
 
 .left-section, .right-section {

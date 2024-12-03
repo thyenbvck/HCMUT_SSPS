@@ -5,12 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import logo from '../../assest/logo.png';
 import loginPicture from "../../assest/login.png"
+import { useNavigate } from "react-router-dom";
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  const navigate = useNavigate();
   // Tên tài khoản và mật khẩu cố định để kiểm tra.
   const validUsername = "admin";
   const validPassword = "123456";
@@ -19,13 +20,12 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
 
     if (username === validUsername && password === validPassword) {
-      setError("");
-      setSuccess("Login successful!");
+      navigate("/print-services"); 
     } else {
       setSuccess("");
       setError("Invalid username or password!");
     }
-    onLogin();
+    // onLogin();
   };
 
   return (

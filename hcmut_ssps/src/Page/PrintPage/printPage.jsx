@@ -1,10 +1,10 @@
 import React from "react";
 import './index.css'; // Assuming you have some CSS to style this component  
-
+import Sidebar from "../../components/Sidebar";
 const PrintPage = () => {
     return (
         <div className="print-page">
-
+        <Sidebar />
             <main className="upload-section">
                 <h2>Upload files</h2>
                 <p>Select and upload the files of your choice</p>
