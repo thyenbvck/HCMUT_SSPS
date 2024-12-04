@@ -12,7 +12,8 @@ const info = () => {
       <Sidebar/>  
         <div className="info-group4">
             <div className="info-pageheading">
-              <span className="info-text1">Thông tin tài khoản</span>
+              <span className="info-text1">Thông tin tài khoản
+              </span>
               <img
                 src={dividerImage}
                 alt="Divider774"

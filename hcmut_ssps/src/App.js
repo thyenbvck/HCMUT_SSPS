@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Login from "./Page/Login/login";
 import PrintPage from "./Page/PrintPage/printPage"
-import PrintSelection from "./Page/PrintSelection/PrintSelection.jsx"
+import PrintSelection from "./Page/PrintSelection/PrintSelection"
 import Info from "./Page/Info/info.jsx"
-
+import BuyPage from "./Page/buyPage/buyPage"
 
 import { BrowserRouter as Router, Route, Routes, useLocation  } from "react-router-dom";
 // import accountInfo from "./Page/Info/Info";
@@ -20,8 +20,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/print-services" element={<PrintPage />} />
+          <Route path="/buy-pages" element={<BuyPage/>} />
           {/* Thêm các Route khác nếu cần */}
-          <Route path="/print-slection" element={<PrintSelection/>}  />
+          <Route path="/print-selection" element={<PrintSelection/>}  />
           <Route path="/account-info" element={<Info />} />
         </Routes>
       </div>

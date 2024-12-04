@@ -29,6 +29,7 @@ const Login = ({ onLogin }) => {
   };
 
   return (
+    <div className="login">
     <div className="background">
       <div className="left-section">
         <img
@@ -101,6 +102,7 @@ const Login = ({ onLogin }) => {
           </div>
         </section>
       </div>
+    </div>
     </div>
   );
 };
