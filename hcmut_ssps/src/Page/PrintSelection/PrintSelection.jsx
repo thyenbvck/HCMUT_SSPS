@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import "./PrintSelection.css"; // Add CSS styles for the design
 import Sidebar from "../../components/Sidebar";
 import document from "../../assest/document.png"
+import printerData from "../../hcmut_ssps_complex_data.json"
 const PrintSelection = ({ file }) => {
   const [printer, setPrinter] = useState("");
   const [pageRange, setPageRange] = useState("all");
   const [copies, setCopies] = useState(1);
   const [isCollated, setIsCollated] = useState(false);
+  const [printers, setPrinters] = useState([]);
+  useEffect(() => {
+    setPrinters(printerData.printers);
+  }, []);
 
   const handlePrint = () => {
     alert(`Printing:
@@ -19,7 +24,7 @@ const PrintSelection = ({ file }) => {
   return (
     <div className="print-page2">
         <div className="main-container">
-    <Sidebar /> {/* Sidebar bên trái */}
+    <Sidebar />
     <div className="content-container">
       <div className="section information">
         <h3>Information</h3>
@@ -32,23 +37,29 @@ const PrintSelection = ({ file }) => {
       </div>
 
       {/* Printer Section */}
-      <div className="section printer">
-        <h3>Printer</h3>
-        <div className="printer-row">
-          <label htmlFor="printer">Name:</label>
-          <input
-            id="printer"
-            type="text"
-            placeholder="Input Printer Name"
-            value={printer}
-            onChange={(e) => setPrinter(e.target.value)}
-          />
-          <button className="properties-button">Properties</button>
-        </div>
-        <p><strong>Status:</strong> Ready</p>
-        <p><strong>Type:</strong> Brother HL-4000N Series</p>
-        <p><strong>Where:</strong> H6 - 601</p>
-      </div>
+          <div className="section printer">
+            <h3>Printer</h3>
+            <div className="printer-row">
+              <label htmlFor="printer">Select Printer:</label>
+              <select
+                id="printer"
+                value={printer}
+                onChange={(e) => setPrinter(e.target.value)}
+              >
+                <option value="">--Select Printer--</option>
+                {printers.map((printerItem) => (
+                  <option key={printerItem.id} value={printerItem.name}>
+                    {printerItem.name} - {printerItem.status}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <p>
+              <strong>Status:</strong> {printer ? printers.find((p) => p.name === printer)?.status : "No printer selected"}
+            </p>
+            <p><strong>Type:</strong> {printer ? printers.find((p) => p.name === printer)?.type : "Unknown"}</p>
+            <p><strong>Where:</strong> {printer ? printers.find((p) => p.name === printer)?.location : "Unknown"}</p>
+          </div>
       <div className="page-range-copies-container">
   {/* Page Range Section */}
   <div className="section page-range">

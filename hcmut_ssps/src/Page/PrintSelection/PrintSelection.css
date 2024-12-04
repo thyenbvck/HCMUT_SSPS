@@ -43,6 +43,7 @@
   
   .printer-row label {
     margin-right: 10px;
+    font-size: larger;
   }
   
   .printer-row input {
@@ -225,4 +226,21 @@
     border: 1px solid #ccc; 
     border-radius: 3px; 
   }
+  select {
+    font-size: 1rem;
+    padding: 10px 15px; 
+    width: 70%; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    background-color: #f9f9f9; 
+    box-sizing: border-box; 
+  }
   
+  select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  select option {
+    padding: 10px;
+  }
