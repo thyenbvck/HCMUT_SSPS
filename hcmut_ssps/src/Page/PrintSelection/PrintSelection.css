@@ -3,8 +3,18 @@
 .print-page2 {
     display: flex;
     flex-direction: column;
-    padding: 20px;
     font-family: Arial, sans-serif;
+  }
+
+.main-container {
+  display: flex;
+  flex: 1; 
+}
+  .content-container {
+    flex: 1; 
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #fff;
   }
   
   .section {
@@ -49,35 +59,126 @@
     border-radius: 3px;
     cursor: pointer;
   }
-  
-  .range-options {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .range-options label {
-    display: flex;
-    align-items: center;
-  }
-  
-  .range-options input[type="radio"] {
-    margin-right: 10px;
-  }
-  
-  .copies-row {
-    display: flex;
-    align-items: center;
-  }
-  
-  .copies-row label {
-    margin-right: 10px;
-  }
-  
-  .copies-row input {
-    width: 50px;
-    padding: 5px;
-  }
-  
+
+.page-range-copies-container {
+  display: flex; 
+  gap: 20px; 
+  justify-content: space-between;
+  align-items: flex-start; 
+  width: 100%; 
+  margin-top: 20px;
+}
+
+.page-range,
+.copies {
+  flex: 1; 
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-sizing: border-box; 
+  font-size: 18px;
+  min-height: 200px;
+}
+
+.page-range h3,
+.copies h3 {
+  color: #4a4a4a;
+  margin-bottom: 15px;
+  font-size: 20px; 
+}
+
+.range-options label,
+.copies-row label {
+  font-size: 18px; 
+}
+
+.page-input,
+.copies-row input {
+  font-size: 16px; 
+}
+.page-range-container .row {
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center; 
+  gap: 15px; 
+}
+
+.page-range-container .row input[type="text"] {
+  margin-left: 10px; 
+  width: 150px; 
+}
+.page-range h3,
+.copies h3 {
+  color: #4a4a4a;
+  margin-bottom: 15px;
+}
+
+.range-options {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px; 
+}
+
+.range-options .range-selection {
+  display: flex;
+  gap: 300px; 
+  align-items: center; 
+}
+
+.range-options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.page-input {
+  margin-left: 10px;
+  padding: 5px;
+  width: 100%;  
+  max-width: 400px; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.range-options input[type="radio"] {
+  flex-shrink: 0;
+}
+.page-input {
+  margin-left: 20px;
+  padding: 5px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.helper-text {
+  font-size: 12px;
+  color: #888;
+  margin-top: 10px;
+}
+
+.copies-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.copies-row input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.collate-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
   .actions {
     display: flex;
     justify-content: space-between;
@@ -98,5 +199,30 @@
   .print-button {
     background-color: #2ecc71;
     color: white;
+  }
+  .collate-option {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Khoảng cách giữa checkbox và ảnh */
+  }
+  
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+  }
+  
+  .document-preview {
+    display: flex;
+    gap: 30px;
+    margin-right: 80px;
+  }
+  
+  .document-preview img {
+    width: 60px; 
+    height: 60px;
+    object-fit: cover; 
+    border: 1px solid #ccc; 
+    border-radius: 3px; 
   }
   

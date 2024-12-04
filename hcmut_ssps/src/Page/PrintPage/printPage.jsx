@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react';
 import './index.css';
 import Sidebar from "../../components/Sidebar";
+import { useNavigate } from 'react-router-dom'; 
 
 const PrintPage = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -15,6 +17,9 @@ const PrintPage = () => {
 
             if (allowedTypes.includes(file.type) && file.size <= maxSize) {
                 setSelectedFile(file);
+                setTimeout(() => {
+                    navigate('/print-selection', { state: { file } }); // Truyền file qua state
+                }, 500);
             } else {
                 alert('Please select a valid file (JPEG, PNG, PDF, or MP4) up to 50MB');
                 event.target.value = null; // Clear the file input
@@ -42,6 +47,9 @@ const PrintPage = () => {
 
             if (allowedTypes.includes(file.type) && file.size <= maxSize) {
                 setSelectedFile(file);
+                setTimeout(() => {
+                    navigate('/print-selection', { state: { file } }); // Truyền file qua state
+                }, 500);
             } else {
                 alert('Please select a valid file (JPEG, PNG, PDF, or MP4) up to 50MB');
             }
