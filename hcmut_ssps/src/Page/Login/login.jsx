@@ -19,14 +19,13 @@ const Login = () => {
       setError("Email and Password cannot be empty.");
       return;
     }
-    console.log("Email người dùng nhập:", email);
-  console.log("Password người dùng nhập:", password);
     const user = User.accounts.find(
       (account) => account.email === email && account.password === password
     );
 
     if (user) {
       setError("");
+      localStorage.setItem("userInfo", JSON.stringify(user));
       navigate("/account-info", { state: { userInfo: user } });
     } else {
       setError("Invalid email or password!");

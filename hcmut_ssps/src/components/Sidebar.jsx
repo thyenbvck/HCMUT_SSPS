@@ -58,8 +58,8 @@ const Sidebar = () => {
           <i className="icon">❓</i> Hỗ Trợ
         </Link>
         <Link 
-          to="/consumption-report" 
-          className={`menu-item ${location.pathname === '/consumption-report' ? 'active' : ''}`}
+          to="/History" 
+          className={`menu-item ${location.pathname === '/History' ? 'active' : ''}`}
         >
           <i className="icon">📋</i> Báo Cáo Tiêu Dùng
         </Link>

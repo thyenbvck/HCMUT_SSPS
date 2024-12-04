@@ -3,7 +3,7 @@ import Login from "./Page/Login/login";
 import PrintPage from "./Page/PrintPage/printPage"
 import PrintSelection from "./Page/PrintSelection/PrintSelection"
 import Info from "./Page/Info/info.jsx"
-
+import PrintHistory from "./Page/PrintHistory/PrintHistory.jsx";
 
 import { BrowserRouter as Router, Route, Routes, useLocation  } from "react-router-dom";
 // import accountInfo from "./Page/Info/Info";
@@ -23,6 +23,7 @@ function App() {
           {/* Thêm các Route khác nếu cần */}
           <Route path="/print-selection" element={<PrintSelection/>}  />
           <Route path="/account-info" element={<Info />} />
+          <Route path="/History" element ={<PrintHistory/>} />
         </Routes>
       </div>
     </div>

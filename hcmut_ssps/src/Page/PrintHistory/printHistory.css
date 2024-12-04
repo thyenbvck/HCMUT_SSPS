@@ -1,0 +1,63 @@
+/* Bảng lịch sử in ấn */
+.print-history-table-container {
+    max-height: 400px; /* Giới hạn chiều cao của bảng */
+    overflow-y: auto; /* Thêm khả năng cuộn dọc khi bảng vượt quá chiều cao */
+    margin-top: 20px;
+  }
+  
+  .print-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .print-history-table th,
+  .print-history-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .print-history-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .print-history-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  /* Khi click vào dòng (màu xanh khi chọn) */
+  .print-history-table tr.selected {
+    background-color: #4CAF50; /* Màu xanh */
+    color: white; /* Văn bản màu trắng khi chọn */
+  }
+  
+  /* Chi tiết giao dịch */
+  .transaction-detail {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .transaction-detail h3 {
+    margin-bottom: 15px;
+  }
+  
+  .transaction-detail p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .transaction-detail ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .transaction-detail ul li {
+    margin-bottom: 5px;
+  }
+  

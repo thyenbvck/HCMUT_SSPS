@@ -1,12 +1,22 @@
 import React from 'react';
 import { Helmet } from 'react-helmet'
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './info.css'
-import { useLocation } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import dividerImage from './images/divider774-701.svg';
 const Info = () => {
-  const location = useLocation();
-  const user = location.state?.userInfo;
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const user = localStorage.getItem("userInfo");
+    if (user) {
+      setUser(JSON.parse(user));
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
+
   return (
     <div className="info-container">
       <Helmet>
