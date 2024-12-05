@@ -6,6 +6,8 @@ import Info from "./Page/Info/info.jsx"
 import PrintHistory from "./Page/PrintHistory/PrintHistory.jsx";
 
 import { BrowserRouter as Router, Route, Routes, useLocation  } from "react-router-dom";
+import OrderDetails from "./Page/onlinePayment/orderDetails.jsx";
+import Payment from "./Page/onlinePayment/onlinePayment.jsx";
 // import accountInfo from "./Page/Info/Info";
 // import onlinePayment from "./Page/onlinePayment";
 // import buyPages from "./Page/buyPages";
@@ -23,6 +25,8 @@ function App() {
           {/* Thêm các Route khác nếu cần */}
           <Route path="/print-selection" element={<PrintSelection/>}  />
           <Route path="/account-info" element={<Info />} />
+          <Route path="/order" element={<OrderDetails />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/History" element ={<PrintHistory/>} />
         </Routes>
       </div>
