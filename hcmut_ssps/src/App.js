@@ -8,7 +8,8 @@ import PrintSelection from './Page/User/PrintSelection/PrintSelection';
 import Info from './Page/User/Info/info';
 import Payment from './Page/User/onlinePayment/onlinePayment';
 import PrintHistory from './Page/User/PrintHistory/PrintHistory';
-
+import BuyPage from './Page/User/buyPage/buyPage'
+import ThanhToan from './Page/User/buyPage/ThanhToan';
 /*Admin Page */
 import InfoAdmin from './Page/Admin/Info/info';
 import AccountManagement from './Page/Admin/manageAccount/manageAccount';
@@ -64,6 +65,22 @@ const App = () => {
         element={
           <ProtectedRoute role="student">
             <Info />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/buy-pages"
+        element={
+          <ProtectedRoute role="student">
+            <BuyPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/thanh-toan"
+        element={
+          <ProtectedRoute role="student">
+            <ThanhToan />
           </ProtectedRoute>
         }
       />

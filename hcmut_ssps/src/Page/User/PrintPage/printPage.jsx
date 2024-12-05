@@ -11,18 +11,17 @@ const PrintPage = () => {
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            // Validate file type and size
             const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf', 'video/mp4'];
-            const maxSize = 50 * 1024 * 1024; // 50MB
+            const maxSize = 50 * 1024 * 1024;
 
             if (allowedTypes.includes(file.type) && file.size <= maxSize) {
                 setSelectedFile(file);
                 setTimeout(() => {
-                    navigate('/print-selection', { state: { file } }); // Truyền file qua state
+                    navigate('/student/print-selection', { state: { file } });
                 }, 500);
             } else {
                 alert('Please select a valid file (JPEG, PNG, PDF, or MP4) up to 50MB');
-                event.target.value = null; // Clear the file input
+                event.target.value = null;
             }
         }
     };
@@ -48,7 +47,7 @@ const PrintPage = () => {
             if (allowedTypes.includes(file.type) && file.size <= maxSize) {
                 setSelectedFile(file);
                 setTimeout(() => {
-                    navigate('/print-selection', { state: { file } }); // Truyền file qua state
+                    navigate('/student/print-selection', { state: { file } });
                 }, 500);
             } else {
                 alert('Please select a valid file (JPEG, PNG, PDF, or MP4) up to 50MB');
