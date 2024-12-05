@@ -14,11 +14,11 @@ const PrinterManagement = () => {
     location: "",
     status: "Ready",
   });
+  const [errors, setErrors] = useState("");  // Thêm state lỗi
   const [showForm, setShowForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const printersPerPage = 3;
 
-  // Load danh sách máy in từ server khi component được mount
   useEffect(() => {
     fetchPrinters();
   }, []);
@@ -35,16 +35,30 @@ const PrinterManagement = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+    setErrors("");  // Xóa lỗi khi người dùng nhập dữ liệu
+  };
+
+  const validateForm = () => {
+    // Kiểm tra nếu có trường nào thiếu thông tin
+    if (!form.printer_id || !form.name || !form.type || !form.location) {
+      return "Thiếu thông tin tại một hoặc nhiều trường!";
+    }
+    return "";
   };
 
   const handleAddPrinter = async () => {
-    try {
-      await axios.post("http://localhost:3001/admin/printer-management", form);
-      fetchPrinters();
-      setForm({ printer_id: "", name: "", type: "", location: "", status: "Ready" });
-      setShowForm(false);
-    } catch (error) {
-      console.error("Lỗi khi thêm máy in:", error);
+    const errorMessage = validateForm();
+    if (!errorMessage) {
+      try {
+        await axios.post("http://localhost:3001/admin/printer-management", form);
+        fetchPrinters();
+        setForm({ printer_id: "", name: "", type: "", location: "", status: "Ready" });
+        setShowForm(false);
+      } catch (error) {
+        console.error("Lỗi khi thêm máy in:", error);
+      }
+    } else {
+      setErrors(errorMessage);  // Cập nhật lỗi nếu có
     }
   };
 
@@ -55,17 +69,22 @@ const PrinterManagement = () => {
   };
 
   const handleSavePrinter = async () => {
-    try {
-      await axios.put(
-        `http://localhost:3001/admin/printer-management/${form.printer_id}`,
-        form
-      );
-      fetchPrinters();
-      setEditingPrinter(null);
-      setForm({ printer_id: "", name: "", type: "", location: "", status: "Ready" });
-      setShowForm(false);
-    } catch (error) {
-      console.error("Lỗi khi lưu máy in:", error);
+    const errorMessage = validateForm();
+    if (!errorMessage) {
+      try {
+        await axios.put(
+          `http://localhost:3001/admin/printer-management/${form.printer_id}`,
+          form
+        );
+        fetchPrinters();
+        setEditingPrinter(null);
+        setForm({ printer_id: "", name: "", type: "", location: "", status: "Ready" });
+        setShowForm(false);
+      } catch (error) {
+        console.error("Lỗi khi lưu máy in:", error);
+      }
+    } else {
+      setErrors(errorMessage);  // Cập nhật lỗi nếu có
     }
   };
 
@@ -146,6 +165,7 @@ const PrinterManagement = () => {
         value={form.status}
         onChange={handleInputChange}
       />
+      {errors && <div className="error">{errors}</div>} {/* Hiển thị lỗi nếu có */}
       <button type="button" onClick={editingPrinter ? handleSavePrinter : handleAddPrinter}>
         {editingPrinter ? "Lưu" : "Thêm máy in"}
       </button>

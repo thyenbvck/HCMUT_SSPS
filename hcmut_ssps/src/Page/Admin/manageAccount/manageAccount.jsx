@@ -15,12 +15,10 @@ const AccountManagement = () => {
     phone: "",
     monthlyPage: "",
   });
-  const [errors, setErrors] = useState(""); // State for generic error message
+  const [errors, setErrors] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const accountsPerPage = 4;
-
-  // Fetch accounts from API
   const fetchAccounts = async () => {
     try {
       const response = await axios.get("http://localhost:3001/admin/account-management");
