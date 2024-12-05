@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 import './printHistory.css'
-import Sidebar from "../../components/Sidebar";
-import printHistoryData from "../../hcmut_ssps_complex_data.json";  
+import Sidebar from "../../../components/Sidebar";
+import printHistoryData from "../../../hcmut_ssps_complex_data.json";  
 
 const PrintHistory = () => {
   const navigate = useNavigate();

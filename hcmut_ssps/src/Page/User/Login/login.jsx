@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import "./css/style.css";
 import "./fonts/material-icon/css/material-design-iconic-font.css";
-import loginPicture from "../../assest/login.png";
-import logo from '../../assest/logo.png';
+import loginPicture from "../../../assest/login.png";
+import logo from '../../../assest/logo.png'
 import { useNavigate } from "react-router-dom";
-import User from "../../hcmut_ssps_complex_data.json";
-
+import User from "../../../hcmut_ssps_complex_data.json";
 const Login = () => {
-  console.log(User.accounts);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,9 +22,16 @@ const Login = () => {
     );
 
     if (user) {
-      setError("");
+      setError(""); 
       localStorage.setItem("userInfo", JSON.stringify(user));
-      navigate("/account-info", { state: { userInfo: user } });
+      localStorage.setItem("role", user.role);
+      if (user.role === "admin") {
+        navigate("/admin/admin-info", { state: { userInfo: user } });
+      } else if (user.role === "student") {
+        navigate("/student/account-info", { state: { userInfo: user } });
+      } else {
+        setError("Unauthorized role!");
+      }
     } else {
       setError("Invalid email or password!");
     }

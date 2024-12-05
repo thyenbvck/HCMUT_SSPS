@@ -1,8 +1,8 @@
 import React, { useState,useEffect  } from "react";
 import "./PrintSelection.css"; // Add CSS styles for the design
-import Sidebar from "../../components/Sidebar";
-import document from "../../assest/document.png"
-import printerData from "../../hcmut_ssps_complex_data.json"
+import Sidebar from "../../../components/Sidebar";
+import document from "../../../assest/document.png"
+import printerData from "../../../hcmut_ssps_complex_data.json"
 const PrintSelection = ({ file }) => {
   const [printer, setPrinter] = useState("");
   const [pageRange, setPageRange] = useState("all");

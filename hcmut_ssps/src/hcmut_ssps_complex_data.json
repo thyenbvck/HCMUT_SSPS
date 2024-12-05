@@ -1,12 +1,22 @@
 {
     "accounts": [
         {
+            "email" : "admin",
+            "password": "admin",
+            "name" : "Admin1",
+            "phone" : "0907111212",
+            "role" : "admin"
+        },
+
+        {
             "student_id": "2212601",
             "name": "Nguyễn Văn A1",
             "email": "a1.nguyenvan@hcmut.edu.vn",
             "password": "password",
             "department": "Khoa học và kỹ thuật máy tính",
             "phone": "0907111201",
+            "monthlyPage" : "30",
+            "role" : "student",
             "available_pages": {
                 "A4": 10,
                 "A3": 5,
@@ -21,6 +31,8 @@
             "password": "passwordA2",
             "department": "Khoa học và kỹ thuật máy tính",
             "phone": "0907111202",
+            "monthlyPage" : "30",
+            "role" : "student",
             "available_pages": {
                 "A4": 15,
                 "A3": 5,
@@ -35,6 +47,8 @@
             "password": "passwordA3",
             "department": "Khoa học và kỹ thuật máy tính",
             "phone": "0907111203",
+            "monthlyPage" : "30",
+            "role" : "student",
             "available_pages": {
                 "A4": 20,
                 "A3": 10,

@@ -1,11 +1,16 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";  // Thêm useLocation
+import { Link, useLocation,useNavigate  } from "react-router-dom";  // Thêm useLocation
 import logo from '../assest/logo.png';
 import "./Sidebar.css";
 
 const Sidebar = () => {
-  const location = useLocation();  // Lấy đường dẫn hiện tại của URL
+  const location = useLocation();  
+  const navigate = useNavigate();  
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken"); 
+    navigate("/");
+  };
   return (
     <div className="sidebar">
       <div className="logo">
@@ -14,57 +19,57 @@ const Sidebar = () => {
       </div>
       <nav className="menu">
         <Link 
-          to="/account-info" 
-          className={`menu-item ${location.pathname === '/account-info' ? 'active' : ''}`}
+          to="/student/account-info" 
+          className={`menu-item ${location.pathname === '/student/account-info' ? 'active' : ''}`}
         >
           <i className="icon">📄</i> Thông Tin Tài Khoản
         </Link>
         <Link 
-          to="/print-services" 
-          className={`menu-item ${location.pathname === '/print-services' ? 'active' : ''}`}
+          to="/student/print-services" 
+          className={`menu-item ${location.pathname === '/student/print-services' ? 'active' : ''}`}
         >
           <i className="icon">🚗</i> Dịch Vụ In Ấn
         </Link>
         <Link 
-          to="/buy-pages" 
-          className={`menu-item ${location.pathname === '/buy-pages' ? 'active' : ''}`}
+          to="/student/buy-pages" 
+          className={`menu-item ${location.pathname === '/student/buy-pages' ? 'active' : ''}`}
         >
           <i className="icon">🛒</i> Mua Thêm Trang In
         </Link>
         <Link 
-          to="/notifications" 
-          className={`menu-item ${location.pathname === '/notifications' ? 'active' : ''}`}
+          to="/student/notifications" 
+          className={`menu-item ${location.pathname === '/student/notifications' ? 'active' : ''}`}
         >
           <i className="icon">🔔</i> Thông Báo
         </Link>
         <Link 
-          to="/settings" 
-          className={`menu-item ${location.pathname === '/settings' ? 'active' : ''}`}
+          to="/student/settings" 
+          className={`menu-item ${location.pathname === '/student/settings' ? 'active' : ''}`}
         >
           <i className="icon">⚙️</i> Cài Đặt
         </Link>
         <div className="divider" />
         <h4>Report</h4>
         <Link 
-          to="/kshs" 
-          className={`menu-item ${location.pathname === '/kshs' ? 'active' : ''}`}
+          to="/student/kshs" 
+          className={`menu-item ${location.pathname === '/student/kshs' ? 'active' : ''}`}
         >
           <i className="icon">📊</i> KSHS
         </Link>
         <Link 
-          to="/support" 
-          className={`menu-item ${location.pathname === '/support' ? 'active' : ''}`}
+          to="/student/support" 
+          className={`menu-item ${location.pathname === '/student/support' ? 'active' : ''}`}
         >
           <i className="icon">❓</i> Hỗ Trợ
         </Link>
         <Link 
-          to="/History" 
-          className={`menu-item ${location.pathname === '/History' ? 'active' : ''}`}
+          to="/student/History" 
+          className={`menu-item ${location.pathname === '/student/History' ? 'active' : ''}`}
         >
           <i className="icon">📋</i> Báo Cáo Tiêu Dùng
         </Link>
       </nav>
-      <button className="logout-button">
+      <button className="logout-button" onClick={handleLogout}>
         <i className="icon">🔓</i> Logout
       </button>
     </div>

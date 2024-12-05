@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './index.css';
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../../components/Sidebar";
 import { useNavigate } from 'react-router-dom'; 
 
 const PrintPage = () => {
