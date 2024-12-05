@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import data from "../../../hcmut_ssps_complex_data.json";
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // Thư viện để gọi API
 import '../style.css';
 import AdminSidebar from "../../../components/adminSidebar";
 import { Helmet } from 'react-helmet';
 
 const AccountManagement = () => {
-  const [accountList, setAccountList] = useState(data.accounts); 
+  const [accountList, setAccountList] = useState([]);
   const [editingAccount, setEditingAccount] = useState(null);
   const [form, setForm] = useState({
     student_id: "",
@@ -18,17 +18,40 @@ const AccountManagement = () => {
 
   const [showForm, setShowForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const accountsPerPage = 3; 
+  const accountsPerPage = 3;
+
+  // Lấy danh sách tài khoản từ API
+  const fetchAccounts = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/admin/account-management");
+      setAccountList(response.data);
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách tài khoản:", error);
+    }
+  };
+
+  // Tải danh sách tài khoản khi component được mount
+  useEffect(() => {
+    fetchAccounts();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
-  const handleAddAccount = () => {
-    setAccountList([...accountList, { ...form, role: "student" }]);  
-    setForm({ student_id: "", name: "", email: "", department: "", phone: "", monthlyPage: "" });
-    setShowForm(false);
+  const handleAddAccount = async () => {
+    try {
+      await axios.post("http://localhost:3001/admin/account-management", {
+        ...form,
+        role: "student",
+      });
+      fetchAccounts(); // Tải lại danh sách tài khoản sau khi thêm
+      setForm({ student_id: "", name: "", email: "", department: "", phone: "", monthlyPage: "" });
+      setShowForm(false);
+    } catch (error) {
+      console.error("Lỗi khi thêm tài khoản:", error);
+    }
   };
 
   const handleEditAccount = (account) => {
@@ -37,17 +60,28 @@ const AccountManagement = () => {
     setShowForm(true);
   };
 
-  const handleSaveAccount = () => {
-    setAccountList(accountList.map(account =>
-      account.student_id === form.student_id ? form : account  
-    ));
-    setEditingAccount(null);
-    setForm({ student_id: "", name: "", email: "", department: "", phone: "", monthlyPage: "" });
-    setShowForm(false);
+  const handleSaveAccount = async () => {
+    try {
+      await axios.put(
+        `http://localhost:3001/admin/account-management/${form.student_id}`,
+        form
+      );
+      fetchAccounts(); // Tải lại danh sách tài khoản sau khi cập nhật
+      setEditingAccount(null);
+      setForm({ student_id: "", name: "", email: "", department: "", phone: "", monthlyPage: "" });
+      setShowForm(false);
+    } catch (error) {
+      console.error("Lỗi khi cập nhật tài khoản:", error);
+    }
   };
 
-  const handleDeleteAccount = (student_id) => {
-    setAccountList(accountList.filter(account => account.student_id !== student_id));  
+  const handleDeleteAccount = async (student_id) => {
+    try {
+      await axios.delete(`http://localhost:3001/admin/account-management/${student_id}`);
+      fetchAccounts(); // Tải lại danh sách tài khoản sau khi xóa
+    } catch (error) {
+      console.error("Lỗi khi xóa tài khoản:", error);
+    }
   };
 
   const indexOfLastAccount = currentPage * accountsPerPage;

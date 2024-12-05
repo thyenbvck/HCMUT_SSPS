@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import data from "../../../hcmut_ssps_complex_data.json";
-import '../style.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../style.css";
 import AdminSidebar from "../../../components/adminSidebar";
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 
 const PrinterManagement = () => {
-  const [printerList, setPrinterList] = useState(data.printers);
+  const [printerList, setPrinterList] = useState([]);
   const [editingPrinter, setEditingPrinter] = useState(null);
   const [form, setForm] = useState({
     printer_id: "",
@@ -18,15 +18,34 @@ const PrinterManagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const printersPerPage = 3;
 
+  // Load danh sách máy in từ server khi component được mount
+  useEffect(() => {
+    fetchPrinters();
+  }, []);
+
+  const fetchPrinters = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/admin/printer-management");
+      setPrinterList(response.data);
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách máy in:", error);
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
-  const handleAddPrinter = () => {
-    setPrinterList([...printerList, form]);
-    setForm({ printer_id: "", name: "", type: "", location: "", status: "Ready" });
-    setShowForm(false);
+  const handleAddPrinter = async () => {
+    try {
+      await axios.post("http://localhost:3001/admin/printer-management", form);
+      fetchPrinters();
+      setForm({ printer_id: "", name: "", type: "", location: "", status: "Ready" });
+      setShowForm(false);
+    } catch (error) {
+      console.error("Lỗi khi thêm máy in:", error);
+    }
   };
 
   const handleEditPrinter = (printer) => {
@@ -35,29 +54,42 @@ const PrinterManagement = () => {
     setShowForm(true);
   };
 
-  const handleSavePrinter = () => {
-    setPrinterList(
-      printerList.map((printer) =>
-        printer.printer_id === form.printer_id ? form : printer
-      )
-    );
-    setEditingPrinter(null);
-    setForm({ printer_id: "", name: "", type: "", location: "", status: "Ready" });
-    setShowForm(false);
+  const handleSavePrinter = async () => {
+    try {
+      await axios.put(
+        `http://localhost:3001/admin/printer-management/${form.printer_id}`,
+        form
+      );
+      fetchPrinters();
+      setEditingPrinter(null);
+      setForm({ printer_id: "", name: "", type: "", location: "", status: "Ready" });
+      setShowForm(false);
+    } catch (error) {
+      console.error("Lỗi khi lưu máy in:", error);
+    }
   };
 
-  const handleDeletePrinter = (printer_id) => {
-    setPrinterList(printerList.filter((printer) => printer.printer_id !== printer_id));
+  const handleDeletePrinter = async (printer_id) => {
+    if (window.confirm("Bạn có chắc chắn muốn xóa máy in này?")) {
+      try {
+        await axios.delete(`http://localhost:3001/admin/printer-management/${printer_id}`);
+        fetchPrinters();
+      } catch (error) {
+        console.error("Lỗi khi xóa máy in:", error);
+      }
+    }
   };
 
-  const handleToggleStatus = (printer_id) => {
-    setPrinterList(
-      printerList.map((printer) =>
-        printer.printer_id === printer_id
-          ? { ...printer, status: printer.status === "Ready" ? "Disabled" : "Ready" }
-          : printer
-      )
-    );
+  const handleToggleStatus = async (printer_id) => {
+    try {
+      const printer = printerList.find((p) => p.printer_id === printer_id);
+      const updatedStatus = printer.status === "Ready" ? "Disabled" : "Ready";
+      const updatedPrinter = { ...printer, status: updatedStatus };
+      await axios.put(`http://localhost:3001/admin/printer-management/${printer_id}`, updatedPrinter);
+      fetchPrinters();
+    } catch (error) {
+      console.error("Lỗi khi cập nhật trạng thái máy in:", error);
+    }
   };
 
   const indexOfLastPrinter = currentPage * printersPerPage;

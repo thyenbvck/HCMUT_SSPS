@@ -21,7 +21,6 @@ const BuyPage = () => {
     };
 
     const handleQuantityChange = (newQuantity) => {
-        // Chuyển đổi giá trị sang số trước khi cập nhật state
         setQuantity(parseInt(newQuantity, 10) || 0);
         console.log("Số lượng mới:", newQuantity);
     };
@@ -34,7 +33,7 @@ const BuyPage = () => {
             id: newOrderId,
             paperType: paperType,
             pages: quantity,
-            price: 1000, // Giả sử đơn giá là 1000 VNĐ/trang
+            price: 1000, 
             status: 'pending',
         };
 
@@ -78,9 +77,7 @@ const BuyPage = () => {
             </div>
             <div className="table-container">
                 <div className="table-header">Đơn thanh toán</div>
-                {/* Phần tiêu đề */}
-
-                <table> {/* Bảng dữ liệu */}
+                <table> 
                     <thead>
                     <tr>
                         <th>ID Bill</th>

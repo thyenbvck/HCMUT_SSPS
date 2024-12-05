@@ -18,6 +18,7 @@
     flex-shrink: 1;
 }
 .info-pageheader {
+    padding-top: 10px;
     top: 130px;
     left: 400px;
     width: 100%;
@@ -245,7 +246,7 @@ button:disabled {
 }
 
 .bank-logo img {
-    width: 50px; /* Điều chỉnh kích thước logo ngân hàng */
+    width: 200px; /* Điều chỉnh kích thước logo ngân hàng */
     height: auto;
 }
 
@@ -261,7 +262,7 @@ button:disabled {
 }
 
 .qr-code img {
-    width: 100px; /* Điều chỉnh kích thước QR code */
+    width: 300px; /* Điều chỉnh kích thước QR code */
     height: auto;
 }
 

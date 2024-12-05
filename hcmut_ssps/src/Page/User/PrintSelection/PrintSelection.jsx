@@ -5,11 +5,9 @@ import "./PrintSelection.css";
 import Sidebar from "../../../components/Sidebar";
 import document from "../../../assest/document.png";
 import printerData from "../../../hcmut_ssps_complex_data.json";
-// const workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
-// const pdfjsLib = window['pdfjs-dist/build/pdf'];
-// pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
-const workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/es5/build/pdf.worker.min.js';
-GlobalWorkerOptions.workerSrc = workerSrc;
+import * as pdfjsLib from 'pdfjs-dist/build/pdf'
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
 const PrintSelection = () => {
   
   const [printer, setPrinter] = useState("");
