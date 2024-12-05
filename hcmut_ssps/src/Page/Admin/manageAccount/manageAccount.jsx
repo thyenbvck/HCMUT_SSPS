@@ -15,22 +15,21 @@ const AccountManagement = () => {
     phone: "",
     monthlyPage: "",
   });
-
+  const [errors, setErrors] = useState(""); // State for generic error message
   const [showForm, setShowForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const accountsPerPage = 3;
+  const accountsPerPage = 4;
 
-  // Lấy danh sách tài khoản từ API
+  // Fetch accounts from API
   const fetchAccounts = async () => {
     try {
       const response = await axios.get("http://localhost:3001/admin/account-management");
       setAccountList(response.data);
     } catch (error) {
-      console.error("Lỗi khi lấy danh sách tài khoản:", error);
+      console.error("Error fetching account list:", error);
     }
   };
 
-  // Tải danh sách tài khoản khi component được mount
   useEffect(() => {
     fetchAccounts();
   }, []);
@@ -38,19 +37,33 @@ const AccountManagement = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+    setErrors("");
+  };
+
+  const validateForm = () => {
+    // Check if any field is missing
+    if (!form.student_id || !form.name || !form.email || !form.department || !form.phone || !form.monthlyPage) {
+      return "Thiếu thông tin tại một hoặc nhiều trường!";
+    }
+    return "";
   };
 
   const handleAddAccount = async () => {
-    try {
-      await axios.post("http://localhost:3001/admin/account-management", {
-        ...form,
-        role: "student",
-      });
-      fetchAccounts(); // Tải lại danh sách tài khoản sau khi thêm
-      setForm({ student_id: "", name: "", email: "", department: "", phone: "", monthlyPage: "" });
-      setShowForm(false);
-    } catch (error) {
-      console.error("Lỗi khi thêm tài khoản:", error);
+    const errorMessage = validateForm();
+    if (!errorMessage) {
+      try {
+        await axios.post("http://localhost:3001/admin/account-management", {
+          ...form,
+          role: "student",
+        });
+        fetchAccounts();
+        setForm({ student_id: "", name: "", email: "", department: "", phone: "", monthlyPage: "" });
+        setShowForm(false);
+      } catch (error) {
+        console.error("Error adding account:", error);
+      }
+    } else {
+      setErrors(errorMessage);
     }
   };
 
@@ -61,26 +74,28 @@ const AccountManagement = () => {
   };
 
   const handleSaveAccount = async () => {
-    try {
-      await axios.put(
-        `http://localhost:3001/admin/account-management/${form.student_id}`,
-        form
-      );
-      fetchAccounts(); // Tải lại danh sách tài khoản sau khi cập nhật
-      setEditingAccount(null);
-      setForm({ student_id: "", name: "", email: "", department: "", phone: "", monthlyPage: "" });
-      setShowForm(false);
-    } catch (error) {
-      console.error("Lỗi khi cập nhật tài khoản:", error);
+    const errorMessage = validateForm();
+    if (!errorMessage) {
+      try {
+        await axios.put(`http://localhost:3001/admin/account-management/${form.student_id}`, form);
+        fetchAccounts();
+        setEditingAccount(null);
+        setForm({ student_id: "", name: "", email: "", department: "", phone: "", monthlyPage: "" });
+        setShowForm(false);
+      } catch (error) {
+        console.error("Error saving account:", error);
+      }
+    } else {
+      setErrors(errorMessage);
     }
   };
 
   const handleDeleteAccount = async (student_id) => {
     try {
       await axios.delete(`http://localhost:3001/admin/account-management/${student_id}`);
-      fetchAccounts(); // Tải lại danh sách tài khoản sau khi xóa
+      fetchAccounts();
     } catch (error) {
-      console.error("Lỗi khi xóa tài khoản:", error);
+      console.error("Error deleting account:", error);
     }
   };
 
@@ -102,54 +117,71 @@ const AccountManagement = () => {
 
   const renderForm = () => (
     <form>
-      <input
-        type="text"
-        name="student_id"
-        placeholder="Mã sinh viên"
-        value={form.student_id}
-        onChange={handleInputChange}
-        disabled={editingAccount ? true : false}
-      />
-      <input
-        type="text"
-        name="name"
-        placeholder="Tên"
-        value={form.name}
-        onChange={handleInputChange}
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleInputChange}
-      />
-      <input
-        type="text"
-        name="department"
-        placeholder="Khoa"
-        value={form.department}
-        onChange={handleInputChange}
-      />
-      <input
-        type="text"
-        name="phone"
-        placeholder="Số điện thoại"
-        value={form.phone}
-        onChange={handleInputChange}
-      />
-      <input
-        type="number"
-        name="monthlyPage"
-        placeholder="Trang cung cấp mỗi tháng"
-        value={form.monthlyPage}
-        onChange={handleInputChange}
-      />
-      {editingAccount ? (
-        <button type="button" onClick={handleSaveAccount}>Lưu</button>
-      ) : (
-        <button type="button" onClick={handleAddAccount}>Thêm tài khoản</button>
-      )}
+      <div className="form-group">
+        <input
+          type="text"
+          name="student_id"
+          placeholder="Mã sinh viên"
+          value={form.student_id}
+          onChange={handleInputChange}
+          disabled={editingAccount ? true : false}
+        />
+      </div>
+
+      <div className="form-group">
+        <input
+          type="text"
+          name="name"
+          placeholder="Tên"
+          value={form.name}
+          onChange={handleInputChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleInputChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <input
+          type="text"
+          name="department"
+          placeholder="Khoa"
+          value={form.department}
+          onChange={handleInputChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <input
+          type="text"
+          name="phone"
+          placeholder="Số điện thoại"
+          value={form.phone}
+          onChange={handleInputChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <input
+          type="number"
+          name="monthlyPage"
+          placeholder="Trang cung cấp mỗi tháng"
+          value={form.monthlyPage}
+          onChange={handleInputChange}
+        />
+      </div>
+      {errors && <div className="error">{errors}</div>} {/* Display generic error message */}
+      <button type="button" onClick={editingAccount ? handleSaveAccount : handleAddAccount}>
+      {editingAccount ? "Lưu" : "Thêm tài khoản"}
+      </button>
+      <button type="button" onClick={() => setShowForm(false)}>Trở về</button>
     </form>
   );
 
@@ -194,23 +226,24 @@ const AccountManagement = () => {
           </table>
         )}
 
-        <div className="pagination">
-          <button 
-            className="pagination-button" 
-            onClick={prevPage} 
-            disabled={currentPage === 1}>
-            &#60; Trước
-          </button>
-          <button 
-            className="pagination-button" 
-            onClick={nextPage} 
-            disabled={currentPage === Math.ceil(accountList.length / accountsPerPage)}>
-            Sau &#62;
-          </button>
-        </div>
-
         {!showForm && (
+        <>
+          <div className="pagination">
+            <button 
+              className="pagination-button" 
+              onClick={prevPage} 
+              disabled={currentPage === 1}>
+              &#60;Trước
+            </button>
+            <button 
+              className="pagination-button" 
+              onClick={nextPage} 
+              disabled={currentPage === Math.ceil(accountList.length / accountsPerPage)}>
+              Sau &#62;
+            </button>
+          </div>
           <button onClick={() => setShowForm(true)}>Thêm tài khoản</button>
+        </>
         )}
       </div>
     </div>

@@ -85,7 +85,7 @@ const PrinterManagement = () => {
       const printer = printerList.find((p) => p.printer_id === printer_id);
       const updatedStatus = printer.status === "Ready" ? "Disabled" : "Ready";
       const updatedPrinter = { ...printer, status: updatedStatus };
-      await axios.put(`http://localhost:3001/admin/printer-management/${printer_id}`, updatedPrinter);
+      await axios.put(`http://localhost:3001/admin/printers/${printer_id}`, updatedPrinter);
       fetchPrinters();
     } catch (error) {
       console.error("Lỗi khi cập nhật trạng thái máy in:", error);
