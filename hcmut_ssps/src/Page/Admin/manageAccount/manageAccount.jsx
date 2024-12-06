@@ -39,7 +39,6 @@ const AccountManagement = () => {
   };
 
   const validateForm = () => {
-    // Check if any field is missing
     if (!form.student_id || !form.name || !form.email || !form.department || !form.phone || !form.monthlyPage) {
       return "Thiếu thông tin tại một hoặc nhiều trường!";
     }

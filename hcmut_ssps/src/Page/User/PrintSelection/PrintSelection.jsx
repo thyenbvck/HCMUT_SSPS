@@ -190,7 +190,6 @@ const PrintSelection = () => {
                   onChange={(e) => setCopies(e.target.value)}
                 />
               </div>
-
               <div className="collate-option">
                 <input
                   type="checkbox"

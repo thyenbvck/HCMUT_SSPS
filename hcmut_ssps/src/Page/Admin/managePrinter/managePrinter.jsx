@@ -14,7 +14,7 @@ const PrinterManagement = () => {
     location: "",
     status: "Ready",
   });
-  const [errors, setErrors] = useState("");  // Thêm state lỗi
+  const [errors, setErrors] = useState(""); 
   const [showForm, setShowForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const printersPerPage = 3;
@@ -35,11 +35,10 @@ const PrinterManagement = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-    setErrors("");  // Xóa lỗi khi người dùng nhập dữ liệu
+    setErrors("");
   };
 
   const validateForm = () => {
-    // Kiểm tra nếu có trường nào thiếu thông tin
     if (!form.printer_id || !form.name || !form.type || !form.location) {
       return "Thiếu thông tin tại một hoặc nhiều trường!";
     }
@@ -104,7 +103,7 @@ const PrinterManagement = () => {
       const printer = printerList.find((p) => p.printer_id === printer_id);
       const updatedStatus = printer.status === "Ready" ? "Disabled" : "Ready";
       const updatedPrinter = { ...printer, status: updatedStatus };
-      await axios.put(`http://localhost:3001/admin/printers/${printer_id}`, updatedPrinter);
+      await axios.put(`http://localhost:3001/admin/printer-management/${printer_id}`, updatedPrinter);
       fetchPrinters();
     } catch (error) {
       console.error("Lỗi khi cập nhật trạng thái máy in:", error);

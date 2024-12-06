@@ -62,7 +62,7 @@
       "name": "Printer 1",
       "type": "Brother HL-4000N Series",
       "location": "H6 - 601",
-      "status": "Disabled"
+      "status": "Ready"
     },
     {
       "printer_id": "P1002",
@@ -336,5 +336,36 @@
         "A2": 0
       }
     }
-  ]
+  ],
+  "config": {
+    "current": {
+      "allowedFormats": [
+        "docx",
+        "pdf"
+      ],
+      "allowedPaperSizes": [
+        "A4",
+        "A3",
+        "A1",
+        "A2"
+      ],
+      "supplyDate": "2024-12-06"
+    },
+    "allFormats": [
+      "docx",
+      "pdf",
+      "png",
+      "jpg",
+      "jpeg",
+      "xls",
+      "xlsx",
+      "txt"
+    ],
+    "allPaperSizes": [
+      "A2",
+      "A1",
+      "A3",
+      "A4"
+    ]
+  }
 }

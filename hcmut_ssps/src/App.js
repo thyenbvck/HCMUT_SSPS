@@ -15,7 +15,7 @@ import InfoAdmin from './Page/Admin/Info/info';
 import AccountManagement from './Page/Admin/manageAccount/manageAccount';
 import PrinterManagement from './Page/Admin/managePrinter/managePrinter';
 import ProtectedRoute from './Page/User/Login/protectedRole';
-
+import ConfigurationManage from './Page/Admin/manageConfiguration/manageConfiguration';
 const App = () => {
   return (
     <Routes>
@@ -41,6 +41,14 @@ const App = () => {
         element={
           <ProtectedRoute role="admin">
             <PrinterManagement />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/configuration-management"
+        element={
+          <ProtectedRoute role="admin">
+            <ConfigurationManage />
           </ProtectedRoute>
         }
       />
