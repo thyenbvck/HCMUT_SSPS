@@ -78,5 +78,7 @@ html {
     font-family: Newsreader;
     font-weight: 700;
   }
-  
+  .info-frame1 .info-text2 .title{
+    padding-right: 30px;
+  }
   

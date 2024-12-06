@@ -179,7 +179,6 @@ app.get("/admin/account-management", (req, res) => {
     });
   });  
   app.put("/admin/configuration-management", (req, res) => {
-    console.log(req.body);
     const { allowedFormats, allowedPaperSizes, supplyDate } = req.body.current;
     fs.readFile(filePath, (err, data) => {
       if (err) {
@@ -202,6 +201,49 @@ app.get("/admin/account-management", (req, res) => {
   });
 /*API STUDENT */
 /********************************/
+app.get('/student/user/:id', (req, res) => {
+  const studentId = req.params.id;
+  fs.readFile(filePath, 'utf-8', (err, data) => {
+    if (err) {
+      return res.status(500).send({ message: 'Error reading data file.' });
+    }
+    const fileData = JSON.parse(data); 
+    const users = fileData.accounts;
+
+    const user = users.find(user => user.student_id === studentId);
+
+    if (user) {
+      return res.status(200).json(user);
+    } else {
+      return res.status(404).send({ message: 'User not found.' });
+    }
+  });
+});
+app.post("/student/user/updatePageCount", (req, res) => {
+  const { student_id, available_pages, totalPages } = req.body;
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) {
+      return res.status(500).send({ message: "Lỗi khi đọc dữ liệu người dùng." });
+    }
+    const filedata = JSON.parse(data);
+    const users = filedata.accounts;
+    const userIndex = users.findIndex(user => user.student_id === student_id);
+    
+    if (userIndex === -1) {
+      return res.status(404).send({ message: "Không tìm thấy người dùng." });
+    }
+    users[userIndex].available_pages = available_pages;
+    users[userIndex].totalPages = totalPages;
+    filedata.accounts = users;
+    fs.writeFile(filePath, JSON.stringify(filedata, null, 2), (writeErr) => {
+      if (writeErr) {
+        return res.status(500).send({ message: "Lỗi khi lưu dữ liệu người dùng." });
+      }
+      return res.status(200).send({ message: "Cập nhật thông tin người dùng thành công." });
+    });
+  });
+});
+
 /********************************/
 app.get("/student/print-selection", (req, res) => {
   fs.readFile(filePath, (err, data) => {
@@ -218,7 +260,41 @@ app.get("/student/print-selection", (req, res) => {
     }
   });
 });
-
+app.post("/student/print-history", (req, res) => {
+  const printHistory = req.body; 
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      res.status(500).send({ message: "Error reading JSON file" });
+    } else {
+      fileData = JSON.parse(data);
+      const history = fileData.PrintHistory;
+      history.push(printHistory);
+      fs.writeFile(filePath, JSON.stringify(fileData, null, 2), (writeError) => {
+        if (writeError) {
+          res.status(500).send({ message: "Error saving print history" });
+        } else {
+          res.send({ message: "Print history saved successfully" });
+        }
+      });
+    } 
+})
+  });
+  app.get("/student/print-history/:student_id", (req, res) => {
+    const { student_id } = req.params;
+  
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        return res.status(500).send({ message: "Error reading JSON file" });
+      }
+      const fileData = JSON.parse(data);
+      const printHistory = fileData.PrintHistory.filter(item => item.student_id === student_id);
+      if (printHistory.length === 0) {
+        return res.status(200).send({ message: "No print history found", printHistory: [] });
+      }
+      console.log("history",printHistory);
+      res.status(200).send({ printHistory });
+    });
+  });
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
 import "./PrintSelection.css";
 import Sidebar from "../../../components/Sidebar";
@@ -21,6 +21,7 @@ const PrintSelection = () => {
   const [file, setFile] = useState(null);
   const [allowedPaperSizes, setAllowedPaperSizes] = useState(null);
   const [paperSize, setPaperSize] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchPrinters = async () =>{
     try{
@@ -81,7 +82,9 @@ const PrintSelection = () => {
 
     fileReader.readAsArrayBuffer(file);
   };
-
+  const handleCancel = () => {
+    navigate("/student/print-services");
+  };
   const handlePrint = async () => {
     if (!printer) {
       alert("Vui lòng chọn máy in.");
@@ -106,7 +109,6 @@ const PrintSelection = () => {
       alert("Không có thông tin về kích thước giấy này.");
       return;
     }
-  
     let totalPagesToPrint = totalPages;
     if (pageRange === "pages") {
       const pageRangeInput = document.querySelector('input[placeholder="e.g., 1-3, 5"]');
@@ -126,16 +128,31 @@ const PrintSelection = () => {
       return;
     }
     alert(`In:\nFile: ${file?.name || "Không có tên file"}\nMáy in: ${printer || "Không có máy in"}\nSố bản sao: ${copies}\nSố trang: ${totalPagesRequired}`);
-    const updatedUser = {
-      ...user,
-      available_pages: {
-        ...user.available_pages,
-        [paperSize]: userAvailablePages - totalPagesRequired,
-      },
-    };
-    localStorage.setItem("userInfo", JSON.stringify(updatedUser));
     try {
+      const updatedUser = {
+        ...user,
+        available_pages: {
+          ...user.available_pages,
+          [paperSize]: userAvailablePages - totalPagesRequired,
+        },
+        totalPages: user.totalPages + totalPagesRequired, 
+      };
+    
+      await axios.post("http://localhost:3001/student/user/updatePageCount", {
+        student_id: user.student_id,
+        available_pages: updatedUser.available_pages,
+        totalPages: updatedUser.totalPages,
+      });
+    } catch (error) {
+      console.error("Lỗi khi cập nhật thông tin người dùng:", error);
+      alert("Không thể cập nhật thông tin người dùng. Vui lòng thử lại.");
+    }
+    // localStorage.setItem("userInfo", JSON.stringify(updatedUser));
+    try {
+      const printHistoryId = `print-${Date.now()}`;
+      const printTime = new Date().toISOString();
       await axios.post("http://localhost:3001/student/print-history", {
+        id: printHistoryId,
         student_id: user.student_id,
         printerName: printer,
         fileName: file?.name,
@@ -143,6 +160,7 @@ const PrintSelection = () => {
         pages: totalPagesToPrint,
         paperSize,
         collated: isCollated,
+        time: printTime,
       });
       alert("Lịch sử in ấn đã được lưu.");
     } catch (error) {
@@ -290,7 +308,7 @@ const PrintSelection = () => {
             </div>
           </div>
           <div className="actions">
-            <button className="cancel-button" onClick={() => alert("Print Cancelled")}>
+            <button className="cancel-button" onClick={handleCancel}>
               Cancel
             </button>
             <button className="print-button" onClick={handlePrint}>
