@@ -62,14 +62,14 @@
       "name": "Printer 1",
       "type": "Brother HL-4000N Series",
       "location": "H6 - 601",
-      "status": "Ready"
+      "status": "Disabled"
     },
     {
       "printer_id": "P1002",
       "name": "Printer 2",
       "type": "HP LaserJet Pro M404dw",
       "location": "H1 - 101",
-      "status": "Ready"
+      "status": "Disabled"
     },
     {
       "printer_id": "P1003",

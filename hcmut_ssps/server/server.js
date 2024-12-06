@@ -211,7 +211,6 @@ app.get("/student/print-selection", (req, res) => {
       const fileData = JSON.parse(data);
       const printers = fileData.printers.filter((printer) => printer.status === "Ready");
       const allowedPaperSizes = fileData.config.current.allowedPaperSizes || 0;
-      console.log("printer",printers);
       res.send({
         printers,
         allowedPaperSizes,
@@ -219,6 +218,7 @@ app.get("/student/print-selection", (req, res) => {
     }
   });
 });
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

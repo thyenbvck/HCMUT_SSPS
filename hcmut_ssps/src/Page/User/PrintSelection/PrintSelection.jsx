@@ -3,23 +3,36 @@ import { useLocation } from 'react-router-dom';
 import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
 import "./PrintSelection.css";
 import Sidebar from "../../../components/Sidebar";
-import document from "../../../assest/document.png";
-import printerData from "../../../hcmut_ssps_complex_data.json";
+// import document from "../../../assest/document.png";
+// import printerData from "../../../hcmut_ssps_complex_data.json";
+import axios from "axios";
 import * as pdfjsLib from 'pdfjs-dist/build/pdf'
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
 const PrintSelection = () => {
   
   const [printer, setPrinter] = useState("");
+  const [error,setError] = useState("");
   const [pageRange, setPageRange] = useState("all");
   const [copies, setCopies] = useState(1);
   const [isCollated, setIsCollated] = useState(false);
   const [printers, setPrinters] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [file, setFile] = useState(null);
-
+  const [allowedPaperSizes, setAllowedPaperSizes] = useState(null);
+  const [paperSize, setPaperSize] = useState("");
   useEffect(() => {
-    setPrinters(printerData.printers);
+    const fetchPrinters = async () =>{
+    try{
+    const response = await axios.get("http://localhost:3001/student/print-selection");
+        setPrinters(response.data.printers || []);
+        setAllowedPaperSizes(response.data.allowedPaperSizes || []);
+    }catch (error) {
+      console.error("Error fetching ", error);
+      setError("Lỗi khi tải máy in. Vui lòng thử lại!");
+      }
+    };
+    fetchPrinters();
   }, []);
 
   const location = useLocation();
@@ -69,13 +82,75 @@ const PrintSelection = () => {
     fileReader.readAsArrayBuffer(file);
   };
 
-  const handlePrint = () => {
-    if (pageRange === "pages" && (parseInt(pageRange.split("-")[1]) > totalPages)) {
-      alert(`Error: Page range exceeds total pages of the document.`);
-    } else {
-      alert(`Printing:\nFile: ${file?.name || "Unknown"}\nPrinter: ${printer || "No printer selected"}\nCopies: ${copies}\nPage Range: ${pageRange}`);
+  const handlePrint = async () => {
+    if (!printer) {
+      alert("Vui lòng chọn máy in.");
+      return;
+    }
+    const selectedPrinter = printers.find((p) => p.name === printer);
+    if (!selectedPrinter) {
+      alert("Không tìm thấy máy in.");
+      return;
+    }
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+    if (!user) {
+      alert("Không tìm thấy thông tin người dùng.");
+      return;
+    }
+    if (!paperSize) {
+      alert("Vui lòng chọn kích thước giấy.");
+      return;
+    }
+    const userAvailablePages = user.available_pages[paperSize];
+    if (userAvailablePages === undefined) {
+      alert("Không có thông tin về kích thước giấy này.");
+      return;
+    }
+  
+    let totalPagesToPrint = totalPages;
+    if (pageRange === "pages") {
+      const pageRangeInput = document.querySelector('input[placeholder="e.g., 1-3, 5"]');
+      const pageRangeValue = pageRangeInput.value;
+  
+      if (pageRangeValue) {
+        const pages = pageRangeValue.split(",").map((range) => {
+          const [start, end] = range.split("-").map(Number);
+          return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+        }).flat();
+        totalPagesToPrint = pages.length;
+      }
+    }
+    const totalPagesRequired = totalPagesToPrint * copies;
+    if (userAvailablePages < totalPagesRequired) {
+      alert(`Không đủ trang ${paperSize} để in. Vui lòng mua thêm.`);
+      return;
+    }
+    alert(`In:\nFile: ${file?.name || "Không có tên file"}\nMáy in: ${printer || "Không có máy in"}\nSố bản sao: ${copies}\nSố trang: ${totalPagesRequired}`);
+    const updatedUser = {
+      ...user,
+      available_pages: {
+        ...user.available_pages,
+        [paperSize]: userAvailablePages - totalPagesRequired,
+      },
+    };
+    localStorage.setItem("userInfo", JSON.stringify(updatedUser));
+    try {
+      await axios.post("http://localhost:3001/student/print-history", {
+        student_id: user.student_id,
+        printerName: printer,
+        fileName: file?.name,
+        copies,
+        pages: totalPagesToPrint,
+        paperSize,
+        collated: isCollated,
+      });
+      alert("Lịch sử in ấn đã được lưu.");
+    } catch (error) {
+      console.error("Lỗi khi lưu lịch sử in:", error);
+      alert("Không thể lưu lịch sử in. Vui lòng thử lại.");
     }
   };
+  
 
   return (
     <div className="print-page2">
@@ -89,7 +164,7 @@ const PrintSelection = () => {
               <p><strong>Size:</strong> {file?.size ? `${(file.size / 1024).toFixed(2)} KB` : "N/A"}</p>
               <p><strong>Time:</strong> {new Date().toLocaleDateString()}</p>
               <p><strong>Type:</strong> {file?.type || "Unknown"}</p>
-              <p><strong>Total Pages:</strong> {totalPages || "N/A"}</p> {/* Display total pages */}
+              <p><strong>Total Pages:</strong> {totalPages || "N/A"}</p>
             </div>
           </div>
 
@@ -156,8 +231,6 @@ const PrintSelection = () => {
                     Selection
                   </label>
                 </div>
-
-                {/* Pages Input */}
                 <div className="row">
                   <label>
                     <input
@@ -199,6 +272,21 @@ const PrintSelection = () => {
                 />
                 <label htmlFor="collate">Collate</label>
               </div>
+              <div className="paper-size-dropdown">
+    <label htmlFor="paperSize">Select Paper Size:</label>
+    <select
+      id="paperSize"
+      value={paperSize}
+      onChange={(e) => setPaperSize(e.target.value)}
+    >
+      <option value="">--Select Paper Size--</option>
+      {allowedPaperSizes?.map((size, index) => (
+        <option key={index} value={size}>
+          {size}
+        </option>
+      ))}
+    </select>
+  </div>
             </div>
           </div>
           <div className="actions">

@@ -19,12 +19,7 @@ import InfoAdmin from './Page/Admin/Info/info';
 import AccountManagement from './Page/Admin/manageAccount/manageAccount';
 import PrinterManagement from './Page/Admin/managePrinter/managePrinter';
 import ProtectedRoute from './Page/User/Login/protectedRole';
-<<<<<<< HEAD
 import ConfigurationManage from './Page/Admin/manageConfiguration/manageConfiguration';
-=======
-import ReportAdmin from './Page/Admin/Report/report';
-import SupportAdmin from './Page/Admin/Support/support';
->>>>>>> e238bb50f21ee3cd9efed79e9a986ccfd1d4f9df
 const App = () => {
   return (
     <Routes>
@@ -54,25 +49,10 @@ const App = () => {
         }
       />
       <Route
-<<<<<<< HEAD
         path="/admin/configuration-management"
         element={
           <ProtectedRoute role="admin">
             <ConfigurationManage />
-=======
-        path="/admin/reports"
-        element={
-          <ProtectedRoute role="admin">
-            <ReportAdmin />
-          </ProtectedRoute>
-        }
-      />
-            <Route
-        path="/admin/support"
-        element={
-          <ProtectedRoute role="admin">
-            <SupportAdmin />
->>>>>>> e238bb50f21ee3cd9efed79e9a986ccfd1d4f9df
           </ProtectedRoute>
         }
       />
