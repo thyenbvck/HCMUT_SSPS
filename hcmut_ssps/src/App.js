@@ -10,12 +10,21 @@ import Payment from './Page/User/onlinePayment/onlinePayment';
 import PrintHistory from './Page/User/PrintHistory/PrintHistory';
 import BuyPage from './Page/User/buyPage/buyPage'
 import ThanhToan from './Page/User/buyPage/ThanhToan';
+import SupportUser from './Page/User/Support/support';
+import KSHS from './Page/User/KSHS/KSHS';
+import Noti from './Page/User/Noti/noti';
+import Setting from './Page/User/Setting/setting';
 /*Admin Page */
 import InfoAdmin from './Page/Admin/Info/info';
 import AccountManagement from './Page/Admin/manageAccount/manageAccount';
 import PrinterManagement from './Page/Admin/managePrinter/managePrinter';
 import ProtectedRoute from './Page/User/Login/protectedRole';
+<<<<<<< HEAD
 import ConfigurationManage from './Page/Admin/manageConfiguration/manageConfiguration';
+=======
+import ReportAdmin from './Page/Admin/Report/report';
+import SupportAdmin from './Page/Admin/Support/support';
+>>>>>>> e238bb50f21ee3cd9efed79e9a986ccfd1d4f9df
 const App = () => {
   return (
     <Routes>
@@ -45,10 +54,25 @@ const App = () => {
         }
       />
       <Route
+<<<<<<< HEAD
         path="/admin/configuration-management"
         element={
           <ProtectedRoute role="admin">
             <ConfigurationManage />
+=======
+        path="/admin/reports"
+        element={
+          <ProtectedRoute role="admin">
+            <ReportAdmin />
+          </ProtectedRoute>
+        }
+      />
+            <Route
+        path="/admin/support"
+        element={
+          <ProtectedRoute role="admin">
+            <SupportAdmin />
+>>>>>>> e238bb50f21ee3cd9efed79e9a986ccfd1d4f9df
           </ProtectedRoute>
         }
       />
@@ -105,6 +129,38 @@ const App = () => {
         element={
           <ProtectedRoute role="student">
             <PrintHistory />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/support"
+        element={
+          <ProtectedRoute role="student">
+            <SupportUser />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/kshs"
+        element={
+          <ProtectedRoute role="student">
+            <KSHS />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/notifications"
+        element={
+          <ProtectedRoute role="student">
+            <Noti />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/settings"
+        element={
+          <ProtectedRoute role="student">
+            <Setting />
           </ProtectedRoute>
         }
       />
