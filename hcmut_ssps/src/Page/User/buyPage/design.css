@@ -266,3 +266,35 @@ button:disabled {
     height: auto;
 }
 
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.pay-all-button {
+    align-self: center;
+    margin-top: 20px;
+}
+
+.pagination-controls button {
+    padding: 5px 10px;
+    background-color: #16b910;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
