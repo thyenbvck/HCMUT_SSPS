@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Thư viện để gọi API
+import axios from "axios";
 import '../style.css';
 import AdminSidebar from "../../../components/adminSidebar";
 import { Helmet } from 'react-helmet';
 
 const AccountManagement = () => {
   const [accountList, setAccountList] = useState([]);
-  const [editingAccount, setEditingAccount] = useState(null);
   const [form, setForm] = useState({
     student_id: "",
     name: "",
     email: "",
+    password: "",
     department: "",
     phone: "",
     monthlyPage: "",
   });
   const [errors, setErrors] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);  // Track if we're editing
   const [currentPage, setCurrentPage] = useState(1);
   const accountsPerPage = 4;
+
   const fetchAccounts = async () => {
     try {
       const response = await axios.get("http://localhost:3001/admin/account-management");
@@ -39,48 +41,43 @@ const AccountManagement = () => {
   };
 
   const validateForm = () => {
-    if (!form.student_id || !form.name || !form.email || !form.department || !form.phone || !form.monthlyPage) {
+    if (!form.student_id || !form.name || !form.email || !form.department || !form.phone || !form.monthlyPage || !form.password) {
       return "Thiếu thông tin tại một hoặc nhiều trường!";
     }
     return "";
   };
 
-  const handleAddAccount = async () => {
+  const handleAddOrUpdateAccount = async () => {
     const errorMessage = validateForm();
     if (!errorMessage) {
       try {
-        await axios.post("http://localhost:3001/admin/account-management", {
-          ...form,
-          role: "student",
+        if (isEditing) {
+          await axios.put(`http://localhost:3001/admin/account-management/${form.student_id}`, form);
+        } else {
+          await axios.post("http://localhost:3001/admin/account-management", {
+            ...form,
+            role: "student",
+            available_pages: {
+              A4: 20,
+              A3: 20,
+              A2: 20,
+            },
+          });
+        }
+        fetchAccounts();  // Fetch updated list after adding or updating
+        setForm({
+          student_id: "",
+          name: "",
+          email: "",
+          password: "",
+          department: "",
+          phone: "",
+          monthlyPage: "",
         });
-        fetchAccounts();
-        setForm({ student_id: "", name: "", email: "", department: "", phone: "", monthlyPage: "" });
-        setShowForm(false);
+        setShowForm(false); // Close the form
+        setIsEditing(false); // Reset editing state after form submission
       } catch (error) {
-        console.error("Error adding account:", error);
-      }
-    } else {
-      setErrors(errorMessage);
-    }
-  };
-
-  const handleEditAccount = (account) => {
-    setEditingAccount(account.student_id);
-    setForm(account);
-    setShowForm(true);
-  };
-
-  const handleSaveAccount = async () => {
-    const errorMessage = validateForm();
-    if (!errorMessage) {
-      try {
-        await axios.put(`http://localhost:3001/admin/account-management/${form.student_id}`, form);
-        fetchAccounts();
-        setEditingAccount(null);
-        setForm({ student_id: "", name: "", email: "", department: "", phone: "", monthlyPage: "" });
-        setShowForm(false);
-      } catch (error) {
-        console.error("Error saving account:", error);
+        console.error("Error adding or updating account:", error);
       }
     } else {
       setErrors(errorMessage);
@@ -94,6 +91,12 @@ const AccountManagement = () => {
     } catch (error) {
       console.error("Error deleting account:", error);
     }
+  };
+
+  const handleEditAccount = (account) => {
+    setForm(account);  // Populate form with account data for editing
+    setShowForm(true);
+    setIsEditing(true);  // Mark as editing
   };
 
   const indexOfLastAccount = currentPage * accountsPerPage;
@@ -121,7 +124,6 @@ const AccountManagement = () => {
           placeholder="Mã sinh viên"
           value={form.student_id}
           onChange={handleInputChange}
-          disabled={editingAccount ? true : false}
         />
       </div>
 
@@ -174,9 +176,20 @@ const AccountManagement = () => {
           onChange={handleInputChange}
         />
       </div>
+
+      <div className="form-group">
+        <input
+          type="password"
+          name="password"
+          placeholder="Mật khẩu"
+          value={form.password}
+          onChange={handleInputChange}
+        />
+      </div>
+
       {errors && <div className="error">{errors}</div>} {/* Display generic error message */}
-      <button type="button" onClick={editingAccount ? handleSaveAccount : handleAddAccount}>
-      {editingAccount ? "Lưu" : "Thêm tài khoản"}
+      <button type="button" onClick={handleAddOrUpdateAccount}>
+        {isEditing ? "Cập nhật tài khoản" : "Thêm tài khoản"}
       </button>
       <button type="button" onClick={() => setShowForm(false)}>Trở về</button>
     </form>
@@ -189,7 +202,7 @@ const AccountManagement = () => {
       </Helmet>
       <AdminSidebar />
       <div className="account-content">
-        <h3>{editingAccount ? "Chỉnh sửa tài khoản" : "Danh sách tài khoản sinh viên"}</h3>
+        <h3>Danh sách tài khoản sinh viên</h3>
         {showForm && renderForm()}
         {!showForm && (
           <table>
@@ -214,7 +227,7 @@ const AccountManagement = () => {
                   <td>{account.phone}</td>
                   <td>{account.monthlyPage || "0"}</td>
                   <td>
-                    <button onClick={() => handleEditAccount(account)}>Sửa</button>
+                    <button onClick={() => handleEditAccount(account)}>Chỉnh sửa</button>
                     <button onClick={() => handleDeleteAccount(account.student_id)}>Xóa</button>
                   </td>
                 </tr>
@@ -224,23 +237,39 @@ const AccountManagement = () => {
         )}
 
         {!showForm && (
-        <>
-          <div className="pagination">
+          <>
+            <div className="pagination">
+              <button 
+                className="pagination-button" 
+                onClick={prevPage} 
+                disabled={currentPage === 1}>
+                &#60;Trước
+              </button>
+              <button 
+                className="pagination-button" 
+                onClick={nextPage} 
+                disabled={currentPage === Math.ceil(accountList.length / accountsPerPage)}>
+                Sau &#62;
+              </button>
+            </div>
             <button 
-              className="pagination-button" 
-              onClick={prevPage} 
-              disabled={currentPage === 1}>
-              &#60;Trước
+              onClick={() => {
+                setShowForm(true);
+                setForm({
+                  student_id: "",
+                  name: "",
+                  email: "",
+                  password: "",
+                  department: "",
+                  phone: "",
+                  monthlyPage: "",
+                });
+                setIsEditing(false); // Reset editing state when adding new account
+              }}
+            >
+              Thêm tài khoản
             </button>
-            <button 
-              className="pagination-button" 
-              onClick={nextPage} 
-              disabled={currentPage === Math.ceil(accountList.length / accountsPerPage)}>
-              Sau &#62;
-            </button>
-          </div>
-          <button onClick={() => setShowForm(true)}>Thêm tài khoản</button>
-        </>
+          </>
         )}
       </div>
     </div>

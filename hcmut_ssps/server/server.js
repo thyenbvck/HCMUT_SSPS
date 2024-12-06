@@ -219,6 +219,38 @@ app.get('/student/user/:id', (req, res) => {
     }
   });
 });
+app.put("/student/update-user/:student_id", (req, res) => {
+  const student_id = req.params.student_id;
+  const { phone, password } = req.body; 
+
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      return res.status(500).send({ message: "Error reading JSON file" });
+    }
+
+    const fileData = JSON.parse(data);
+    const accounts = fileData.accounts;
+    const accountIndex = accounts.findIndex((account) => account.student_id === student_id);
+
+    if (accountIndex !== -1) {
+      accounts[accountIndex] = {
+        ...accounts[accountIndex],
+        phone: phone || accounts[accountIndex].phone,
+        password: password || accounts[accountIndex].password
+      };
+      fileData.accounts = accounts;
+      fs.writeFile(filePath, JSON.stringify(fileData, null, 2), (err) => {
+        if (err) {
+          return res.status(500).send({ message: "Error writing to JSON file" });
+        }
+
+        return res.send({ message: "Account updated successfully" });
+      });
+    } else {
+      return res.status(404).send({ message: "Account not found" });
+    }
+  });
+});
 app.post("/student/user/updatePageCount", (req, res) => {
   const { student_id, available_pages, totalPages } = req.body;
   fs.readFile(filePath, "utf-8", (err, data) => {

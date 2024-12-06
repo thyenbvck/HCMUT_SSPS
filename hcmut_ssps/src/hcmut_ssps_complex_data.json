@@ -8,22 +8,6 @@
       "role": "admin"
     },
     {
-      "student_id": "2212601",
-      "name": "Nguyễn Văn A1",
-      "email": "a1.nguyenvan@hcmut.edu.vn",
-      "password": "password",
-      "department": "Khoa học và kỹ thuật máy tính",
-      "phone": "0907111201",
-      "monthlyPage": "25",
-      "role": "student",
-      "available_pages": {
-        "A4": 8,
-        "A3": 5,
-        "A2": 5
-      },
-      "totalPages": 1
-    },
-    {
       "student_id": "2212602",
       "name": "Nguyễn Văn A2",
       "email": "A2.nguyenvan@hcmut.edu.vn",
@@ -51,6 +35,21 @@
         "A4": 20,
         "A3": 10,
         "A2": 15
+      }
+    },
+    {
+      "student_id": "2210181",
+      "name": "Hoàng Thiện Bách",
+      "email": "bach.hoangthienbach@hcmut.edu.vn",
+      "password": "10112004",
+      "department": "Khoa học và kỹ thuật máy tính",
+      "phone": "0374947117",
+      "monthlyPage": "30",
+      "role": "student",
+      "available_pages": {
+        "A4": 20,
+        "A3": 20,
+        "A2": 20
       }
     }
   ],
@@ -139,7 +138,7 @@
   "PrintHistory": [
     {
       "id": "print-1733459564761",
-      "student_id": "2212601",
+      "student_id": "2210181",
       "printerName": "Printer 3",
       "fileName": "Bach-Hoang-TopCV.vn-301124.145441.pdf",
       "copies": 1,
@@ -150,7 +149,7 @@
     },
     {
       "id": "print-1733460246451",
-      "student_id": "2212601",
+      "student_id": "2210181",
       "printerName": "Printer 3",
       "fileName": "Bach-Hoang-TopCV.vn-301124.145441.pdf",
       "copies": 1,
