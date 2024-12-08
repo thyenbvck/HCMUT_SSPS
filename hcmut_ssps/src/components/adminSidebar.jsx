@@ -37,6 +37,12 @@ const AdminSidebar = () => {
         >
           <i className="icon">🖨️</i> Quản Lý Máy In
         </Link>
+        <Link 
+          to="/admin/configuration-management" 
+          className={`menu-item ${location.pathname === '/admin/configuration-management' ? 'active' : ''}`}
+        >
+          <i className="icon">🖨️</i> Quản Lý Cấu Hình
+        </Link>
         <div className="divider" />
         <h4>Reports</h4>
         <Link 

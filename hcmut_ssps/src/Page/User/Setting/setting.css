@@ -1,0 +1,73 @@
+/* Container chính của trang setting */
+* {
+    font-family: 'Roboto', Arial, sans-serif;
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+  }
+  
+.setting-container {
+  background-color: #f4f4f9; /* Nền nhẹ */
+    display: flex;
+}
+
+/* Tiêu đề trang setting */
+.setting-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* Form nhập liệu */
+.setting-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.setting-input-group {
+  margin-bottom: 15px;
+}
+
+.setting-input-group label {
+  display: block;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.setting-input-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.setting-input-group input:focus {
+  border-color: #4a90e2;
+  outline: none;
+  background-color: #fff;
+}
+
+.setting-submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.setting-submit-btn:hover {
+  background-color: #357ab7;
+}

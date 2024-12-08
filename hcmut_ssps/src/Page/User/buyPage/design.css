@@ -1,0 +1,300 @@
+.header {
+
+}
+.Title-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0vh;
+}
+.Title {
+    top: -80px;
+    left: 120px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 1;
+}
+.info-pageheader {
+    padding-top: 10px;
+    top: 130px;
+    left: 400px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 1);
+}
+.info-text {
+    color: rgba(0, 0, 0, 1);
+    height: auto;
+    position: absolute;
+    font-size: 35px;
+    font-style: normal;
+    text-align: left;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    line-height: 120.00000476837158%;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+
+
+.filter {
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter label {
+    align-items: center;
+    margin-right: 10px;
+}
+
+.filter select {
+    width: 150px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+}
+.filter input {
+    width: 150px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+}
+
+
+
+
+
+.table-header {
+    top: -60px;
+    left: -380px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0 auto;
+    color: Black;
+    padding: 12px 20px;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+
+}
+
+
+
+
+
+/* design.css */
+.buy-page {
+    display: flex;
+}
+
+.content {
+
+
+}
+
+.form-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    height: 100vh;
+}
+
+.form-field {
+    display: flex;
+    align-items: center;
+}
+
+.form-field label {
+    margin-right: 10px;
+}
+
+.create-order-button {
+    background-color: #4f76f5; /* Màu xanh */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Đặt bảng ở giữa */
+.table-container {
+    top: 190px;
+    left: 400px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: absolute;
+    align-items:flex-start;
+    flex-shrink: 0;
+    justify-content: center;
+    width: 80%;
+    height: 70vh;
+}
+
+/* Kiểu dáng bảng */
+table {
+    width: 80%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: #4f76f5;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.pay-all-button {
+    background-color: #4CAF50;
+    position: absolute;
+    bottom: 20px;
+    right: 130px;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 16px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.pay-all-button:hover {
+    background-color: #45a049;
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+
+
+
+.info-text {
+    color: rgba(0, 0, 0, 1);
+    font-size: 24px; /* Điều chỉnh kích thước font chữ */
+    font-weight: bold; /* In đậm */
+}
+
+.info-divider {
+    width: 100%; /* Chiều rộng của divider */
+    height: 2px; /* Chiều cao của divider */
+}
+
+
+
+
+.thanh-toan {
+    display: flex;
+}
+
+.main-content {
+    margin-left: 20px; /* Khoảng cách giữa Sidebar và nội dung chính */
+}
+
+.payment-methods .method {
+    margin-bottom: 10px;
+}
+
+.transfer-info {
+    margin-top: 20px;
+}
+
+.bank-logo img {
+    width: 200px; /* Điều chỉnh kích thước logo ngân hàng */
+    height: auto;
+}
+
+.account-details,
+.transfer-content {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.copy-button {
+    margin-left: 10px;
+}
+
+.qr-code img {
+    width: 300px; /* Điều chỉnh kích thước QR code */
+    height: auto;
+}
+
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.pay-all-button {
+    align-self: center;
+    margin-top: 20px;
+}
+
+.pagination-controls button {
+    padding: 5px 10px;
+    background-color: #16b910;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+

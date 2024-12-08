@@ -1,341 +1,162 @@
 {
-    "accounts": [
-        {
-            "email" : "admin",
-            "password": "admin",
-            "name" : "Admin1",
-            "phone" : "0907111212",
-            "role" : "admin"
-        },
-
-        {
-            "student_id": "2212601",
-            "name": "Nguyễn Văn A1",
-            "email": "a1.nguyenvan@hcmut.edu.vn",
-            "password": "password",
-            "department": "Khoa học và kỹ thuật máy tính",
-            "phone": "0907111201",
-            "monthlyPage" : "30",
-            "role" : "student",
-            "available_pages": {
-                "A4": 10,
-                "A3": 5,
-                "A2": 5,
-                "total_pages": 20
-            }
-        },
-        {
-            "student_id": "2212602",
-            "name": "Nguyễn Văn A2",
-            "email": "A2.nguyenvan@hcmut.edu.vn",
-            "password": "passwordA2",
-            "department": "Khoa học và kỹ thuật máy tính",
-            "phone": "0907111202",
-            "monthlyPage" : "30",
-            "role" : "student",
-            "available_pages": {
-                "A4": 15,
-                "A3": 5,
-                "A2": 10,
-                "total_pages": 30
-            }
-        },
-        {
-            "student_id": "2212603",
-            "name": "Nguyễn Văn A3",
-            "email": "A3.nguyenvan@hcmut.edu.vn",
-            "password": "passwordA3",
-            "department": "Khoa học và kỹ thuật máy tính",
-            "phone": "0907111203",
-            "monthlyPage" : "30",
-            "role" : "student",
-            "available_pages": {
-                "A4": 20,
-                "A3": 10,
-                "A2": 15,
-                "total_pages": 45
-            }
-        }
+  "accounts": [
+    {
+      "email": "admin",
+      "password": "admin",
+      "name": "Admin1",
+      "phone": "0907111212",
+      "role": "admin"
+    },
+    {
+      "student_id": "2212602",
+      "name": "Nguyễn Văn A2",
+      "email": "A2.nguyenvan@hcmut.edu.vn",
+      "password": "passwordA2",
+      "department": "Khoa học và kỹ thuật máy tính",
+      "phone": "0907111202",
+      "monthlyPage": "30",
+      "role": "student",
+      "available_pages": {
+        "A4": 15,
+        "A3": 5,
+        "A2": 10
+      }
+    },
+    {
+      "student_id": "2212603",
+      "name": "Nguyễn Văn A3",
+      "email": "A3.nguyenvan@hcmut.edu.vn",
+      "password": "passwordA3",
+      "department": "Khoa học và kỹ thuật máy tính",
+      "phone": "0907111203",
+      "monthlyPage": "30",
+      "role": "student",
+      "available_pages": {
+        "A4": 20,
+        "A3": 10,
+        "A2": 15
+      }
+    },
+    {
+      "student_id": "2210181",
+      "name": "Hoàng Thiện Bách",
+      "email": "bach.hoangthienbach@hcmut.edu.vn",
+      "password": "10112004",
+      "department": "Khoa học và kỹ thuật máy tính",
+      "phone": "0374947117",
+      "monthlyPage": "30",
+      "role": "student",
+      "available_pages": {
+        "A4": 20,
+        "A3": 20,
+        "A2": 20
+      }
+    }
+  ],
+  "printers": [
+    {
+      "printer_id": "P1001",
+      "name": "Printer 1",
+      "type": "Brother HL-4000N Series",
+      "location": "H6 - 601",
+      "status": "Disabled"
+    },
+    {
+      "printer_id": "P1002",
+      "name": "Printer 2",
+      "type": "HP LaserJet Pro M404dw",
+      "location": "H1 - 101",
+      "status": "Disabled"
+    },
+    {
+      "printer_id": "P1003",
+      "name": "Printer 3",
+      "type": "Canon PIXMA G3010",
+      "location": "B2 - 202",
+      "status": "Ready"
+    },
+    {
+      "printer_id": "P1004",
+      "name": "Printer 4",
+      "type": "Epson EcoTank L3150",
+      "location": "C3 - 303",
+      "status": "Ready"
+    },
+    {
+      "printer_id": "P1005",
+      "name": "Printer 5",
+      "type": "Xerox Phaser 6022",
+      "location": "D4 - 404",
+      "status": "Ready"
+    },
+    {
+      "printer_id": "P1006",
+      "name": "Printer 6",
+      "type": "Samsung Xpress M2070FW",
+      "location": "E5 - 505",
+      "status": "Ready"
+    },
+    {
+      "printer_id": "P1007",
+      "name": "Printer 7",
+      "type": "Ricoh SP 210",
+      "location": "F6 - 606",
+      "status": "Ready"
+    }
+  ],
+  "config": {
+    "current": {
+      "allowedFormats": [
+        "docx",
+        "pdf"
+      ],
+      "allowedPaperSizes": [
+        "A4",
+        "A3",
+        "A1",
+        "A2"
+      ],
+      "supplyDate": "2024-12-06"
+    },
+    "allFormats": [
+      "docx",
+      "pdf",
+      "png",
+      "jpg",
+      "jpeg",
+      "xls",
+      "xlsx",
+      "txt"
     ],
-    "printers": [
-        {
-            "printer_id": "P1001",
-            "name": "Printer 1",
-            "type": "Brother HL-4000N Series",
-            "location": "H6 - 601",
-            "status": "Ready"
-        },
-        {
-            "printer_id": "P1002",
-            "name": "Printer 2",
-            "type": "HP LaserJet Pro M404dw",
-            "location": "A1 - 101",
-            "status": "Ready"
-        },
-        {
-            "printer_id": "P1003",
-            "name": "Printer 3",
-            "type": "Canon PIXMA G3010",
-            "location": "B2 - 202",
-            "status": "Ready"
-        },
-        {
-            "printer_id": "P1004",
-            "name": "Printer 4",
-            "type": "Epson EcoTank L3150",
-            "location": "C3 - 303",
-            "status": "Ready"
-        },
-        {
-            "printer_id": "P1005",
-            "name": "Printer 5",
-            "type": "Xerox Phaser 6022",
-            "location": "D4 - 404",
-            "status": "Ready"
-        },
-        {
-            "printer_id": "P1006",
-            "name": "Printer 6",
-            "type": "Samsung Xpress M2070FW",
-            "location": "E5 - 505",
-            "status": "Ready"
-        },
-        {
-            "printer_id": "P1007",
-            "name": "Printer 7",
-            "type": "Ricoh SP 210",
-            "location": "F6 - 606",
-            "status": "Ready"
-        }
-    ],
-    "transactions": [
-        {
-            "transaction_id": "T0001",
-            "student_id": "2212601",
-            "printer_id": "P1001",
-            "file_name": "document1.pdf",
-            "printing_properties": {
-                "paper_size": "A4",
-                "pages": "1-10",
-                "double_sided": true,
-                "number_of_copies": 1
-            },
-            "start_time": "2024-12-01T08:00:00",
-            "end_time": "2024-12-01T08:10:00",
-            "pages_printed": {
-                "A4": 10,
-                "A3": 0,
-                "A2": 0
-            }
-        },
-        {
-            "transaction_id": "T0002",
-            "student_id": "2212602",
-            "printer_id": "P1002",
-            "file_name": "document2.pdf",
-            "printing_properties": {
-                "paper_size": "A3",
-                "pages": "1-5",
-                "double_sided": false,
-                "number_of_copies": 2
-            },
-            "start_time": "2024-12-02T09:00:00",
-            "end_time": "2024-12-02T09:15:00",
-            "pages_printed": {
-                "A4": 0,
-                "A3": 10,
-                "A2": 0
-            }
-        },
-        {
-            "transaction_id": "T0003",
-            "student_id": "2212603",
-            "printer_id": "P1003",
-            "file_name": "document3.pdf",
-            "printing_properties": {
-                "paper_size": "A2",
-                "pages": "1-8",
-                "double_sided": true,
-                "number_of_copies": 1
-            },
-            "start_time": "2024-12-03T10:00:00",
-            "end_time": "2024-12-03T10:20:00",
-            "pages_printed": {
-                "A4": 0,
-                "A3": 0,
-                "A2": 8
-            }
-        },
-        {
-            "transaction_id": "T0004",
-            "student_id": "2212601",
-            "printer_id": "P1004",
-            "file_name": "project1.docx",
-            "printing_properties": {
-                "paper_size": "A4",
-                "pages": "1-6",
-                "double_sided": false,
-                "number_of_copies": 3
-            },
-            "start_time": "2024-12-04T11:00:00",
-            "end_time": "2024-12-04T11:15:00",
-            "pages_printed": {
-                "A4": 18,
-                "A3": 0,
-                "A2": 0
-            }
-        },
-        {
-            "transaction_id": "T0005",
-            "student_id": "2212602",
-            "printer_id": "P1005",
-            "file_name": "slides.pdf",
-            "printing_properties": {
-                "paper_size": "A3",
-                "pages": "1-4",
-                "double_sided": true,
-                "number_of_copies": 2
-            },
-            "start_time": "2024-12-05T12:00:00",
-            "end_time": "2024-12-05T12:10:00",
-            "pages_printed": {
-                "A4": 0,
-                "A3": 8,
-                "A2": 0
-            }
-        },
-        {
-            "transaction_id": "T0006",
-            "student_id": "2212603",
-            "printer_id": "P1006",
-            "file_name": "report.pdf",
-            "printing_properties": {
-                "paper_size": "A2",
-                "pages": "1-5",
-                "double_sided": false,
-                "number_of_copies": 1
-            },
-            "start_time": "2024-12-06T13:00:00",
-            "end_time": "2024-12-06T13:20:00",
-            "pages_printed": {
-                "A4": 0,
-                "A3": 0,
-                "A2": 5
-            }
-        },
-        {
-            "transaction_id": "T0007",
-            "student_id": "2212601",
-            "printer_id": "P1007",
-            "file_name": "notes.pdf",
-            "printing_properties": {
-                "paper_size": "A4",
-                "pages": "1-7",
-                "double_sided": true,
-                "number_of_copies": 2
-            },
-            "start_time": "2024-12-07T14:00:00",
-            "end_time": "2024-12-07T14:20:00",
-            "pages_printed": {
-                "A4": 14,
-                "A3": 0,
-                "A2": 0
-            }
-        },
-        {
-            "transaction_id": "T0008",
-            "student_id": "2212602",
-            "printer_id": "P1001",
-            "file_name": "poster.pdf",
-            "printing_properties": {
-                "paper_size": "A3",
-                "pages": "1-3",
-                "double_sided": false,
-                "number_of_copies": 3
-            },
-            "start_time": "2024-12-08T15:00:00",
-            "end_time": "2024-12-08T15:30:00",
-            "pages_printed": {
-                "A4": 0,
-                "A3": 9,
-                "A2": 0
-            }
-        },
-        {
-            "transaction_id": "T0009",
-            "student_id": "2212603",
-            "printer_id": "P1002",
-            "file_name": "summary.pdf",
-            "printing_properties": {
-                "paper_size": "A4",
-                "pages": "1-12",
-                "double_sided": false,
-                "number_of_copies": 1
-            },
-            "start_time": "2024-12-09T16:00:00",
-            "end_time": "2024-12-09T16:10:00",
-            "pages_printed": {
-                "A4": 12,
-                "A3": 0,
-                "A2": 0
-            }
-        },
-        {
-            "transaction_id": "T0010",
-            "student_id": "2212601",
-            "printer_id": "P1003",
-            "file_name": "diagrams.pdf",
-            "printing_properties": {
-                "paper_size": "A2",
-                "pages": "1-2",
-                "double_sided": true,
-                "number_of_copies": 1
-            },
-            "start_time": "2024-12-10T17:00:00",
-            "end_time": "2024-12-10T17:10:00",
-            "pages_printed": {
-                "A4": 0,
-                "A3": 0,
-                "A2": 2
-            }
-        },
-        {
-            "transaction_id": "T0011",
-            "student_id": "2212602",
-            "printer_id": "P1004",
-            "file_name": "booklet.pdf",
-            "printing_properties": {
-                "paper_size": "A4",
-                "pages": "1-8",
-                "double_sided": true,
-                "number_of_copies": 2
-            },
-            "start_time": "2024-12-11T18:00:00",
-            "end_time": "2024-12-11T18:15:00",
-            "pages_printed": {
-                "A4": 16,
-                "A3": 0,
-                "A2": 0
-            }
-        },
-        {
-            "transaction_id": "T0012",
-            "student_id": "2212603",
-            "printer_id": "P1005",
-            "file_name": "chart.pdf",
-            "printing_properties": {
-                "paper_size": "A3",
-                "pages": "1-6",
-                "double_sided": false,
-                "number_of_copies": 1
-            },
-            "start_time": "2024-12-12T19:00:00",
-            "end_time": "2024-12-12T19:10:00",
-            "pages_printed": {
-                "A4": 0,
-                "A3": 6,
-                "A2": 0
-            }
-        }
+    "allPaperSizes": [
+      "A2",
+      "A1",
+      "A3",
+      "A4"
     ]
+  },
+  "PrintHistory": [
+    {
+      "id": "print-1733459564761",
+      "student_id": "2210181",
+      "printerName": "Printer 3",
+      "fileName": "Bach-Hoang-TopCV.vn-301124.145441.pdf",
+      "copies": 1,
+      "pages": 1,
+      "paperSize": "A4",
+      "collated": false,
+      "time": "2024-12-06T04:32:44.761Z"
+    },
+    {
+      "id": "print-1733460246451",
+      "student_id": "2210181",
+      "printerName": "Printer 3",
+      "fileName": "Bach-Hoang-TopCV.vn-301124.145441.pdf",
+      "copies": 1,
+      "pages": 1,
+      "paperSize": "A4",
+      "collated": false,
+      "time": "2024-12-06T04:44:06.451Z"
+    }
+  ]
 }

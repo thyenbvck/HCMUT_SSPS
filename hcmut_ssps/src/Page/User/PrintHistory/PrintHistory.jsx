@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 import './printHistory.css'
 import Sidebar from "../../../components/Sidebar";
-import printHistoryData from "../../../hcmut_ssps_complex_data.json";  
 
 const PrintHistory = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [userTransactions, setUserTransactions] = useState([]);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
   useEffect(() => {
     const user = localStorage.getItem("userInfo");
     if (user) {
@@ -16,19 +18,24 @@ const PrintHistory = () => {
       navigate("/");
     }
   }, [navigate]);
-  const [userTransactions, setUserTransactions] = useState([]);
-  const [selectedTransaction, setSelectedTransaction] = useState(null);
   useEffect(() => {
     if (user) {
-      const filteredTransactions = printHistoryData.transactions.filter(
-        (transaction) => transaction.student_id === user.student_id
-      );
-      setUserTransactions(filteredTransactions);
+      const fetchPrintHistory = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3001/student/print-history/${user.student_id}`);
+          setUserTransactions(response.data.printHistory || []);
+        } catch (error) {
+          console.error("Error fetching print history data:", error);
+        }
+      };
+
+      fetchPrintHistory();
     }
   }, [user]);
+
   const handleTransactionClick = (transactionId) => {
     const transaction = userTransactions.find(
-      (transaction) => transaction.transaction_id === transactionId
+      (transaction) => transaction.id === transactionId
     );
     setSelectedTransaction(transaction);
   };
@@ -51,61 +58,60 @@ const PrintHistory = () => {
               <th>Tên tệp</th>
               <th>Thời gian bắt đầu</th>
               <th>Thuộc tính in</th>
-              <th>Số trang</th>
+              {/* <th>Số trang</th> */}
             </tr>
           </thead>
           <tbody>
             {userTransactions.map((transaction) => (
               <tr
-                key={transaction.transaction_id}
-                onClick={() => handleTransactionClick(transaction.transaction_id)}
+                key={transaction.id}
+                onClick={() => handleTransactionClick(transaction.id)}
                 style={{ cursor: 'pointer' }}
               >
-                <td>{transaction.file_name}</td>
-                <td>{new Date(transaction.start_time).toLocaleString()}</td>
+                <td>{transaction.fileName}</td>
+                <td>{new Date(transaction.time).toLocaleString()}</td>
                 <td>
                   <div>
-                    <span>Giấy: {transaction.printing_properties.paper_size}</span>
+                    <span>Giấy: {transaction.paperSize}</span>
                     <br />
-                    <span>Số trang: {transaction.printing_properties.pages}</span>
+                    <span>Số trang: {transaction.pages}</span>
                     <br />
-                    <span>Số bản sao: {transaction.printing_properties.number_of_copies}</span>
+                    <span>Số bản sao: {transaction.copies}</span>
                     <br />
-                    <span>Hai mặt: {transaction.printing_properties.double_sided ? "Có" : "Không"}</span>
+                    <span>Hai mặt: {transaction.collated ? "Có" : "Không"}</span>
                   </div>
                 </td>
-                <td>
+                {/* <td>
                   <div>
-                    <span>A4: {transaction.pages_printed.A4}</span>
+                    <span>A4: {transaction.pagesA4}</span>
                     <br />
-                    <span>A3: {transaction.pages_printed.A3}</span>
+                    <span>A3: {transaction.pagesA3}</span>
                     <br />
-                    <span>A2: {transaction.pages_printed.A2}</span>
+                    <span>A2: {transaction.pagesA2}</span>
                   </div>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>
         </table>
 
-        {selectedTransaction && (
+        {/* {selectedTransaction && (
           <div className="transaction-detail">
-            <h3>Chi tiết giao dịch {selectedTransaction.transaction_id}</h3>
-            <p><strong>Tên tệp:</strong> {selectedTransaction.file_name}</p>
-            <p><strong>Giấy:</strong> {selectedTransaction.printing_properties.paper_size}</p>
-            <p><strong>Số trang:</strong> {selectedTransaction.printing_properties.pages}</p>
-            <p><strong>Số bản sao:</strong> {selectedTransaction.printing_properties.number_of_copies}</p>
-            <p><strong>Hai mặt:</strong> {selectedTransaction.printing_properties.double_sided ? "Có" : "Không"}</p>
+            <h3>Chi tiết giao dịch {selectedTransaction.id}</h3>
+            <p><strong>Tên tệp:</strong> {selectedTransaction.fileName}</p>
+            <p><strong>Giấy:</strong> {selectedTransaction.paperSize}</p>
+            <p><strong>Số trang:</strong> {selectedTransaction.pages}</p>
+            <p><strong>Số bản sao:</strong> {selectedTransaction.copies}</p>
+            <p><strong>Hai mặt:</strong> {selectedTransaction.collated ? "Có" : "Không"}</p>
             <p><strong>Số trang in:</strong></p>
             <ul>
-              <li>A4: {selectedTransaction.pages_printed.A4}</li>
-              <li>A3: {selectedTransaction.pages_printed.A3}</li>
-              <li>A2: {selectedTransaction.pages_printed.A2}</li>
+              <li>A4: {selectedTransaction.pagesA4}</li>
+              <li>A3: {selectedTransaction.pagesA3}</li>
+              <li>A2: {selectedTransaction.pagesA2}</li>
             </ul>
-            <p><strong>Thời gian bắt đầu:</strong> {new Date(selectedTransaction.start_time).toLocaleString()}</p>
-            <p><strong>Thời gian kết thúc:</strong> {new Date(selectedTransaction.end_time).toLocaleString()}</p>
+            <p><strong>Thời gian bắt đầu:</strong> {new Date(selectedTransaction.time).toLocaleString()}</p>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -1,0 +1,64 @@
+* {
+    font-family: 'Roboto', Arial, sans-serif;
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+  }
+  
+.kshs-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .kshs-content {
+    display: flex;
+    flex-direction: row;  /* Chia thành hai cột */
+  }
+  
+  .kshs-main-content {
+    flex: 1;
+    margin-left: 20px; /* Cách phần Sidebar */
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .kshs-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .kshs-section {
+    margin-bottom: 30px;
+  }
+  
+  .kshs-section h2 {
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  .kshs-section ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .kshs-section ul li {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  
+  .kshs-section ul li a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .kshs-section ul li a:hover {
+    text-decoration: underline;
+  }
+  

@@ -8,13 +8,18 @@ import PrintSelection from './Page/User/PrintSelection/PrintSelection';
 import Info from './Page/User/Info/info';
 import Payment from './Page/User/onlinePayment/onlinePayment';
 import PrintHistory from './Page/User/PrintHistory/PrintHistory';
-
+import BuyPage from './Page/User/buyPage/buyPage'
+import ThanhToan from './Page/User/buyPage/ThanhToan';
+import SupportUser from './Page/User/Support/support';
+import KSHS from './Page/User/KSHS/KSHS';
+import Noti from './Page/User/Noti/noti';
+import Setting from './Page/User/Setting/setting';
 /*Admin Page */
 import InfoAdmin from './Page/Admin/Info/info';
 import AccountManagement from './Page/Admin/manageAccount/manageAccount';
 import PrinterManagement from './Page/Admin/managePrinter/managePrinter';
 import ProtectedRoute from './Page/User/Login/protectedRole';
-
+import ConfigurationManage from './Page/Admin/manageConfiguration/manageConfiguration';
 const App = () => {
   return (
     <Routes>
@@ -44,6 +49,14 @@ const App = () => {
         }
       />
       <Route
+        path="/admin/configuration-management"
+        element={
+          <ProtectedRoute role="admin">
+            <ConfigurationManage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/student/print-services"
         element={
           <ProtectedRoute role="student">
@@ -68,6 +81,22 @@ const App = () => {
         }
       />
       <Route
+        path="/student/buy-pages"
+        element={
+          <ProtectedRoute role="student">
+            <BuyPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/thanh-toan"
+        element={
+          <ProtectedRoute role="student">
+            <ThanhToan />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/student/payment"
         element={
           <ProtectedRoute role="student">
@@ -80,6 +109,38 @@ const App = () => {
         element={
           <ProtectedRoute role="student">
             <PrintHistory />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/support"
+        element={
+          <ProtectedRoute role="student">
+            <SupportUser />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/kshs"
+        element={
+          <ProtectedRoute role="student">
+            <KSHS />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/notifications"
+        element={
+          <ProtectedRoute role="student">
+            <Noti />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/settings"
+        element={
+          <ProtectedRoute role="student">
+            <Setting />
           </ProtectedRoute>
         }
       />

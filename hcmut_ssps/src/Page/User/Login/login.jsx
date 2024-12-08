@@ -49,7 +49,7 @@ const Login = () => {
               <div className="signin-content">
                 <div className="signin-form">
                   <h2 className="form-title">
-                    Welcome to <br />
+                    <strong>Welcome to</strong> <br />
                     <strong>Printing service HCMUT</strong>
                   </h2>
                   <div className="logo-title">
