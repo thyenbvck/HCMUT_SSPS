@@ -54,7 +54,7 @@ const Sidebar = () => {
           to="/student/kshs" 
           className={`menu-item ${location.pathname === '/student/kshs' ? 'active' : ''}`}
         >
-          <i className="icon">📊</i> KSHS
+          <i className="icon">📊</i> Lịch sử giao dịch
         </Link>
         <Link 
           to="/student/support" 
