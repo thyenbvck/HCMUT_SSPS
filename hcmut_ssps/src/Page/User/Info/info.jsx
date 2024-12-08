@@ -165,33 +165,47 @@ import "./info.css";
 import Sidebar from "../../../components/Sidebar";
 import dividerImage from "./images/divider774-701.svg";
 
-const Info = () => {
+// const Info = () => {
+//   const navigate = useNavigate();
+//   const [user, setUser] = useState(null);
+
+//   useEffect(() => {
+//     const storedUser = localStorage.getItem("userInfo");
+
+//     if (storedUser) {
+//       const { student_id } = JSON.parse(storedUser);
+//       fetchUserData(student_id);
+//     } else {
+//       navigate("/");
+//     }
+//   }, [navigate]);
+
+//   const fetchUserData = async (student_id) => {
+//     try {
+//       console.log("Đang gọi API với student_id:", student_id);
+//       const response = await axios.get(`http://localhost:3001/student/user/${student_id}`);
+//       console.log("Kết quả API:", response);
+  
+//       if (response.status === 200) {
+//         setUser(response.data);
+//       } else {
+//         console.error("API trả về lỗi:", response.data.message);
+//       }
+//     } catch (error) {
+//       console.error("Lỗi khi gọi API:", error.message);
+//     }
+//   };
+  const Info = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-
   useEffect(() => {
-    const storedUser = localStorage.getItem("userInfo");
-
-    if (storedUser) {
-      const { student_id } = JSON.parse(storedUser);
-      fetchUserData(student_id);
+    const user = localStorage.getItem("userInfo");
+    if (user) {
+      setUser(JSON.parse(user));
     } else {
       navigate("/");
     }
   }, [navigate]);
-
-  const fetchUserData = async (student_id) => {
-    try {
-      const response = await axios.get(`http://localhost:3001/student/user/${student_id}`);
-      if (response.status === 200) {
-        setUser(response.data);
-      } else {
-        console.error(response.data.message);
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
 
   return (
     <div className="info-container">
@@ -201,13 +215,13 @@ const Info = () => {
       <Sidebar />
       <div className="info-group4">
         <div className="info-pageheading">
-          <h1 className="info-title">Thông tin tài khoản</h1>
+        <span className="info-text1">Thông tin tài khoản</span>
           <img src={dividerImage} alt="Divider" className="info-divider" />
         </div>
       </div>
       <div className="info-frame1">
         {user ? (
-          <div>
+          
             <table className="info-table">
               <tbody>
                 <tr>
@@ -240,7 +254,7 @@ const Info = () => {
                 </tr>
               </tbody>
             </table>
-          </div>
+          
         ) : (
           <p className="info-no-data">Không có thông tin người dùng.</p>
         )}
@@ -250,3 +264,4 @@ const Info = () => {
 };
 
 export default Info;
+

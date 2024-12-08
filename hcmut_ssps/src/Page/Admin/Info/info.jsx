@@ -2,7 +2,7 @@
 import { Helmet } from "react-helmet";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./info.css";
+import "./infoAdmin.css";
 import AdminSidebar from "../../../components/adminSidebar";
 
 const InfoAdmin = () => {
@@ -29,7 +29,8 @@ const InfoAdmin = () => {
           <span className="info-text1">Thông tin tài khoản</span>
         </div>
       </div>
-      <div className="info-frame1">
+      <div className="info-frame1" style={{ height: '40%' }}>
+
         {user ? (
           <table className="info-table">
             <tbody>
