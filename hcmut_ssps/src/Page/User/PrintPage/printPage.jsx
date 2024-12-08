@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './index.css';
 import Sidebar from "../../../components/Sidebar";
-import { useNavigate } from 'react-router-dom'; 
 
 const PrintPage = () => {
     const [selectedFile, setSelectedFile] = useState(null);
