@@ -88,16 +88,16 @@ const App = () => {
           </ProtectedRoute>
         }
       />
-      <Route
+      {/* <Route
         path="/student/thanh-toan"
         element={
           <ProtectedRoute role="student">
             <ThanhToan />
           </ProtectedRoute>
         }
-      />
+      /> */}
       <Route
-        path="/student/payment"
+        path="/student/thanh-toan"
         element={
           <ProtectedRoute role="student">
             <Payment />

@@ -44,16 +44,19 @@ const BuyPage = () => {
         setCurrentPage(Math.ceil((orders.length + 1) / itemsPerPage));
     };
 
-    const handlePay = (orderId) => {
+    const handlePay = (orderId, total) => {
         setOrders(orders.map(order =>
             order.id === orderId ? { ...order, status: 'paid' } : order
         ));
-        navigate('/student/thanh-toan');
+        navigate('/student/thanh-toan', { state: { total } });
     };
 
     const handlePayAll = () => {
         setOrders(orders.map(order => ({ ...order, status: 'paid' })));
-        navigate('/student/thanh-toan');
+        const total = orders.reduce((sum, order) => {
+            return order.status ? sum + (order.price * order.pages) : sum;
+          }, 0);
+        navigate('/student/thanh-toan', { state: { total } });
     };
 
     // Pagination logic
@@ -111,7 +114,7 @@ const BuyPage = () => {
                             <td>{order.price * order.pages} VNĐ</td>
                             <td>
                                 {order.status === 'pending' ? (
-                                    <button onClick={() => handlePay(order.id)}>Thanh toán</button>
+                                    <button onClick={() => handlePay(order.id, order.price * order.pages)}>Thanh toán</button>
                                 ) : (
                                     <span>Đã thanh toán</span>
                                 )}

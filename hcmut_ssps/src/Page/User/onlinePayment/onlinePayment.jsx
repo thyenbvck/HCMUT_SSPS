@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Sidebar from '../../../components/Sidebar';
+import TPlogo from '../../../assest/TPBank.png';
+import QR from '../../../assest/QR.png';
+import MomoLogo from '../../../assest/momo.png';
+import MomoQR from '../../../assest/QR_momo.jpg';
 import './onlinePayment.css';
 
 function Payment() {
@@ -18,26 +22,88 @@ function Payment() {
     navigator.clipboard.writeText(value);
   };
 
+  const BankTransferDetails = () => (
+    <div className="right-column">
+      <h4>Thông tin chuyển khoản</h4>
+      <div className="bank-info">
+        <div className="bank-logo">
+          <img src={TPlogo} alt="Bank Logo" />
+        </div>
+        <div className="bank-details">
+          <p>TP Bank - Ngân hàng Tiên Phong</p>
+          <p>Hoàng Mạnh Đức</p>
+        </div>
+      </div>
+      <div className="account-info">
+        <p>Số tài khoản:</p>
+        <div className="account-details">
+          <strong className="large-text">098765432111</strong>
+          <button className="copy-button" onClick={() => handleCopy('098765432111')}>Sao chép</button>
+        </div>
+      </div>
+      <div className="transfer-info">
+        <p>Nội dung chuyển khoản:</p>
+        <div className="transfer-details">
+          <strong className="large-text">BKPayPrint001</strong>
+          <button className="copy-button" onClick={() => handleCopy('BKPayPrint001')}>Sao chép</button>
+        </div>
+      </div>
+      <div className="transfer-info">
+        <p>Số tiền chuyển khoản:</p>
+        <div className="transfer-details">
+          <strong className="large-text">{total} VNĐ</strong>
+        </div>
+      </div>
+      <div className="qr-code">
+        <img src={QR} alt="QR Code" />
+      </div>
+    </div>
+  );
+
+  const MomoTransferDetails = () => (
+    <div className="right-column">
+      <h4>Thông tin chuyển khoản</h4>
+      <div className="bank-info">
+        <div className="bank-logo">
+          <img src={MomoLogo} alt="Bank Logo" />
+        </div>
+        <div className="bank-details">
+          <p>Momo</p>
+          <p>Nguyễn Trịnh Ngọc Huân</p>
+        </div>
+      </div>
+      <div className="account-info">
+        <p>Số tài khoản:</p>
+        <div className="account-details">
+          <strong className="large-text">0346332560</strong>
+          <button className="copy-button" onClick={() => handleCopy('0346332560')}>Sao chép</button>
+        </div>
+      </div>
+      <div className="transfer-info">
+        <p>Nội dung chuyển khoản:</p>
+        <div className="transfer-details">
+          <strong className="large-text">BKPayPrint001</strong>
+          <button className="copy-button" onClick={() => handleCopy('BKPayPrint001')}>Sao chép</button>
+        </div>
+      </div>
+      <div className="transfer-info">
+        <p>Số tiền chuyển khoản:</p>
+        <div className="transfer-details">
+          <strong className="large-text">{total} VNĐ</strong>
+        </div>
+      </div>
+      <div className="qr-code">
+        <img src={MomoQR} alt="QR Code" />
+      </div>
+    </div>
+  );
+
   const renderRightColumn = () => {
     switch (selectedMethod) {
       case 'Chuyển khoản ngân hàng':
-        return (
-          <div className="right-column">
-            <h4>Thông tin chuyển khoản</h4>
-            <p>TP Bank - Ngân hàng Tiên Phong</p>
-            <p>Hoàng Mạnh Đức</p>
-            <p>Số tài khoản: <strong>098765432111</strong> <button onClick={() => handleCopy('098765432111')}>Sao chép</button></p>
-            <p>Nội dung chuyển khoản: <strong>BKPayPrint001</strong> <button onClick={() => handleCopy('BKPayPrint001')}>Sao chép</button></p>
-            <p>Số tiền chuyển khoản: <strong>{total} VNĐ</strong></p>
-          </div>
-        );
+        return <BankTransferDetails />;
       case 'Ví momo':
-        return (
-          <div className="right-column">
-            <h4>Ví momo</h4>
-            <p>Số tiền chuyển khoản: <strong>{total}</strong></p>
-          </div>
-        );
+        return <MomoTransferDetails />;
       default:
         return null;
     }
